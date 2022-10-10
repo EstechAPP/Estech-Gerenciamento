@@ -138,11 +138,14 @@ export const AreaMiniCards = styled.View`
 
 export const AreaProximoCliente = styled.View`
 
-   margin-top: ${hp('3%')}px;
+   width: 100%;
+   align-items: center;
+   margin-top: ${hp('1.5%')}px;
 
 `;
 export const TextoProximoCliente = styled.Text`
 
+   margin-top: ${hp('3%')}px;
    font-size: ${RFValue(22)}px;
    font-weight: bold;
 

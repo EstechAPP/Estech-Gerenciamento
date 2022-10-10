@@ -29,6 +29,7 @@ import AuthContext from '../../../context/user';
 import { ICategorias } from '../../../types/categorias';
 import { IEmpresa } from '../../../types/empresa';
 import { useNavigation } from '@react-navigation/native';
+import { CardAgendamento } from '../../../components/CardAgendamento';
 
 export default function TelaHome(){
 
@@ -93,10 +94,11 @@ return (
           </ValorMiniCard>
         </MiniCard>
       </AreaMiniCards>
-      <AreaProximoCliente>
         <TextoProximoCliente>
           Próximo cliente
         </TextoProximoCliente>
+      <AreaProximoCliente>
+        <CardAgendamento/>
       </AreaProximoCliente>
     </AreaInformacoes>
    </Container>
