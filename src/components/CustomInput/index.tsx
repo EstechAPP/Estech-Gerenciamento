@@ -6,7 +6,12 @@ import {
  Input, MaskedInput
 } from './styles';
 
-export function CustomInput({...rest} : TextInputProps){
+
+interface CustomInput extends TextInputProps {
+  backgroundColor: string
+}
+
+export function CustomInput({...rest} : CustomInput){
 return (
    <Input {...rest} />
   );

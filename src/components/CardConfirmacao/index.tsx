@@ -9,16 +9,18 @@ import {
  NomeCliente,
  HorarioAgendamento,
  DetalhesAgendamento,
- CancelarAgendamento,
  AreaInfo,
  ValorHorario,
  TouchDetalhes,
  TouchCancelar,
+ AreaStatus,
+ TouchConfirmar,
+ TextStatus,
 } from './styles';
 
-export function CardAgendamento({item, index} : {item: IAgendamento, Index: number}){
+export function CardConfirmacao({item, index} : {item: IAgendamento, index: number}){
 return (
-   <Container index={index}>
+   <Container index={index} >
         <AreaFotoCliente>
             <FotoCliente source={require('../../../assets/no-profile-icon.png')}/>
         </AreaFotoCliente>
@@ -33,9 +35,14 @@ return (
             <TouchDetalhes>
                 <DetalhesAgendamento>Detalhes do Agendamento</DetalhesAgendamento>
             </TouchDetalhes>
-            <TouchCancelar>
-                <CancelarAgendamento>Cancelar Agendamento</CancelarAgendamento>
-            </TouchCancelar>
+            <AreaStatus>
+                <TouchConfirmar>
+                    <TextStatus>Confirmar</TextStatus>
+                </TouchConfirmar>
+                <TouchCancelar>
+                    <TextStatus>Recusar</TextStatus>
+                </TouchCancelar>
+            </AreaStatus>
         </AreaInformacoes>
    </Container>
   );

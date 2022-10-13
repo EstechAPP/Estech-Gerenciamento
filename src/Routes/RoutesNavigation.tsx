@@ -14,8 +14,14 @@ import { TouchableOpacity } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import TelaHome  from '../pages/TabNavigations/TelaHome';
 import { Pendentes } from '../pages/TabNavigations/Pendentes';
-import { Agenda } from '../pages/TabNavigations/Agenda';
+import { TelaAgenda } from '../pages/TabNavigations/Agenda';
 import Perfil from '../pages/TabNavigations/Perfil';
+import { AlterarEmpresa } from '../pages/StackNavigations/AlterarEmpresa';
+import { Servicos } from '../pages/StackNavigations/Servicos';
+import { Funcionarios } from '../pages/StackNavigations/Funcionarios';
+import { Categorias } from '../pages/StackNavigations/Categorias';
+import { FormasPagamento } from '../pages/StackNavigations/FormasPagamento';
+import { AddServico } from '../pages/StackNavigations/Servicos/AddServico';
 
 
 
@@ -52,7 +58,7 @@ function TabNavigation(){
       />
       <Tab.Screen
         name='Agenda'
-        component={Agenda}
+        component={TelaAgenda}
         options={{tabBarIcon: ({color, size}) => (<IconAnt name='calendar' color={color} size={size}/>)}}
       />
       <Tab.Screen
@@ -100,6 +106,36 @@ function RoutesNavigator() {
           name="TabNavigation"
           component={TabNavigation}
           options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="AlterarEmpresa"
+          component={AlterarEmpresa}
+          options={StackOptions}
+        />
+        <Stack.Screen
+          name="Servicos"
+          component={Servicos}
+          options={StackOptions}
+        />
+        <Stack.Screen
+          name="AddServico"
+          component={AddServico}
+          options={StackOptions}
+        />
+        <Stack.Screen
+          name="Funcionarios"
+          component={Funcionarios}
+          options={StackOptions}
+        />
+        <Stack.Screen
+          name="Categorias"
+          component={Categorias}
+          options={StackOptions}
+        />
+        <Stack.Screen
+          name="FormasPagamento"
+          component={FormasPagamento}
+          options={StackOptions}
         />
 
       </Stack.Navigator>

@@ -4,12 +4,12 @@ import styled from 'styled-components/native';
 export const Container = styled.View`
    width: 322px;
    height: 128px;
-   background-color: ${({theme, index}) => index == 0 ? theme.colors.select_tab : theme.colors.background_bege };
+   background-color: ${({theme}) => theme.colors.background_bege};
    flex-direction: row;
    align-items: center;
    justify-content: space-around;
    border-radius: 10px;
-   margin-top: ${({index}) => index == 0 ? 0 : 10}px;
+   margin-top: ${({index} : {index : number}) => index == 0 ? 0 : 20 }px;
 `;
 
 
@@ -30,6 +30,7 @@ export const AreaInformacoes = styled.View`
 
     justify-content: space-between;
     height: 80%;
+    /* width: 0%; */
 
 `;
 export const NomeCliente = styled.Text`
@@ -50,7 +51,7 @@ export const DetalhesAgendamento = styled.Text`
     color: ${({theme}) => theme.colors.select_tab};
     padding: 3px;
 `;
-export const CancelarAgendamento = styled.Text`
+export const TextStatus = styled.Text`
 
     font-size: ${RFValue(11)}px;
     font-weight: 700;
@@ -72,7 +73,16 @@ export const TouchCancelar = styled.TouchableOpacity`
 
     background-color: ${({theme}) => theme.colors.vermelho_closed};
     border-radius: 4px;
-    width: 190px;
+    width: 87px;
+    align-items: center;
+
+`;
+
+export const TouchConfirmar = styled.TouchableOpacity`
+
+    background-color: ${({theme}) => theme.colors.verde_open};
+    border-radius: 4px;
+    width: 87px;
     align-items: center;
 
 `;
@@ -81,6 +91,15 @@ export const AreaInfo = styled.View`
 
     width: 100%;
     flex-direction: row;
+
+`;
+
+export const AreaStatus = styled.View`
+
+    width: 210px;
+    height: 22px;
+    flex-direction: row;
+    justify-content: space-between;
 
 `;
 export const ValorHorario = styled.Text`

@@ -8,9 +8,13 @@ export const Container = styled.TouchableOpacity<TouchableOpacityProps>`
    align-items: center;
    justify-content: space-around;
    flex-direction: row;
+   margin-top: ${({space}) => space ? 20 : 0}px;
    border-radius: 10px;
 `;
 
 export const TituloButton = styled.Text`
-    font-size: 16px;
+    font-size: 12px;
+    text-align: center;
+    width: 80px;
+    text-justify: center
 `;

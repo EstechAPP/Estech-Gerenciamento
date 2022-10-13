@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacityProps } from 'react-native';
-import  Icon  from 'react-native-vector-icons/Ionicons';
+import  Icon  from 'react-native-vector-icons/MaterialIcons';
 
 import {
  Container,
@@ -11,14 +11,15 @@ import {
 interface ButtonPerfil extends TouchableOpacityProps{
     titulo: string;
     iconName: string;
+    space: boolean;
     onPress: () => void;
   }
 
-export function ButtonPerfil({titulo, iconName, onPress} : ButtonPerfil){
+export function ButtonPerfil({titulo, iconName, space, onPress} : ButtonPerfil){
 return (
-   <Container onPress={onPress} >
+   <Container onPress={onPress} space={space}  >
     <Icon name={iconName} size={24}/>
-    <TituloButton>{titulo}</TituloButton>
+    <TituloButton numberOfLines={2}  >{titulo}</TituloButton>
    </Container>
   );
 }

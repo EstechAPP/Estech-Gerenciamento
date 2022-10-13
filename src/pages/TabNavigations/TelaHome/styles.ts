@@ -8,7 +8,9 @@ import { RFValue } from 'react-native-responsive-fontsize';
 export const Container = styled.ScrollView.attrs({
    contentContainerStyle:{
       alignItems: 'center'
-   }
+   },
+   bounces: false,
+   overScrollMode: false
 })`
    flex: 1;
    background-color: ${({theme}) => theme.colors.background_screens};

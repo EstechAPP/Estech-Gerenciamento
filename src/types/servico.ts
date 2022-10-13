@@ -10,6 +10,6 @@ export interface IServico{
 
 export interface IServicoData{
     status: boolean;
-    resultado: IServico;
+    resultado: IServico[];
     mensagem: string;
 }

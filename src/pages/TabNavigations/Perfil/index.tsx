@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import moment from 'moment';
 import React, { useContext, useState } from 'react';
 import { Alert, Linking, Platform } from 'react-native';
@@ -31,6 +32,7 @@ import {
 
 export default function Perfil(){
   const theme = useTheme();
+  const navigation = useNavigation();
   const {userState, setUserState, logout} = useContext(AuthContext)
   const [visible, setVisible] = useState(false);
 
@@ -203,7 +205,8 @@ return (
       </AreaNomeData>
     </AreaPerfil>
     <AreaButtons>
-      <ButtonPerfil titulo='Sair' iconName='exit-outline' onPress={logout} />
+      <ButtonPerfil titulo='Sair' iconName='logout' onPress={logout} />
+      <ButtonPerfil titulo='Alterar Empresa' iconName='edit' onPress={() => {navigation.navigate('AlterarEmpresa')}}/>
     </AreaButtons>
    </Container>
   );

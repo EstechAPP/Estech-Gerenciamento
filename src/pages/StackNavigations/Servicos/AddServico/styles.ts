@@ -1,7 +1,7 @@
 import { Platform, TextProps } from 'react-native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { RFValue } from 'react-native-responsive-fontsize';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
@@ -11,7 +11,7 @@ export const Container = styled.View`
 
 export const AreaHeader = styled.View`
 
-   margin-top: ${Platform.OS === 'ios' ? getStatusBarHeight() + 30 : 10 }px;
+   margin-top: ${Platform.OS === 'ios' ? getStatusBarHeight() + 70 : 40 }px;
    flex-direction: row;
    justify-content: space-between;
    align-items: center;
@@ -36,12 +36,26 @@ export const TextoNome = styled.Text<TextProps>`
    font-size: ${RFValue(22)}px;
    font-weight: bold;
 
+`;
+
+export const Formulario = styled.View`
+
+    flex: 4;
 
 `;
 
-export const ListaAgendamentos = styled.FlatList`
+export const AreaForm = styled.View`
 
-   width: 100%;
+    margin-top: ${hp('3%')}px;
 
+`;
+export const TextoLabel = styled.Text`
+
+
+`;
+
+export const AreaButton = styled.View`
+
+    flex: 1;
 
 `;

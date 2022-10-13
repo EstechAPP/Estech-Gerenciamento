@@ -42,7 +42,7 @@ export default function TelaHome(){
 
 
 return (
-  <Container>
+  <Container >
       {/* <Spinner visible={visible} customIndicator={(
         <SpinnerLoading titulo='Carregando...' />
       )}  /> */}

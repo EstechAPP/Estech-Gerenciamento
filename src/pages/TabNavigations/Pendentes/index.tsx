@@ -1,5 +1,5 @@
 import React from 'react';
-import { CardAgendamento } from '../../../components/CardAgendamento';
+import { CardConfirmacao } from '../../../components/CardConfirmacao';
 
 import {
  Container,
@@ -12,7 +12,7 @@ import {
 
 export function Pendentes(){
 
-  const data = [1,2,3,4,5]
+  const data = [1,2,3,4]
 
 return (
    <Container>
@@ -24,8 +24,12 @@ return (
     </AreaHeader>
     <ListaAgendamentos
       data={data}
-      renderItem={({item}) => (
-        <CardAgendamento/>
+      contentContainerStyle={{alignItems: 'center'}}
+      ListEmptyComponent={(
+        <TextoMensagem>Você não possui agendamentos pendentes.</TextoMensagem>
+      )}
+      renderItem={({item, index}) => (
+        <CardConfirmacao item={item} index={index}/>
       )}
     />
    </Container>
