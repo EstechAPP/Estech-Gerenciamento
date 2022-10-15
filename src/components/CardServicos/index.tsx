@@ -13,15 +13,12 @@ import {
  TextoPreco,
 } from './styles';
 
-export function CardServicos(
-  {data, dadosEmpresa} : {data : IServico, dadosEmpresa : IEmpresa}
-  
-  ){
+export function CardServicos({data, dadosEmpresa} : {data : IServico, dadosEmpresa : IEmpresa}){
 
     const navigation = useNavigation();
 
 return (
-   <Container onPress={() => navigation.navigate('AddServico', {idServico: data.id})}>
+   <Container onPress={() => navigation.navigate('AddServico', {objServico: data})}>
     <ImagemServico source={require("../../../assets/fotobarbearia.png")} />
     <AreaNomePreco>
         <TextoNome numberOfLines={2}>

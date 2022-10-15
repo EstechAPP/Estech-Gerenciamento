@@ -7,7 +7,7 @@ export const Container = styled.TouchableOpacity.attrs<TouchableOpacityProps>({
 })`
    width: 275px;
    height: 53px;
-   background-color: ${({theme}) => theme.colors.primary_color_button};
+   background-color: ${({theme, backgroundColor}) => backgroundColor ? backgroundColor : theme.colors.primary_color_button};
    justify-content: center;
    align-items: center;
    border-radius: 27px;

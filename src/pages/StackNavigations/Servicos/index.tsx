@@ -17,6 +17,14 @@ export function Servicos() {
   const [servicos, setServicos] = useState<IServico[]>([])
   const isFocused = useIsFocused();
 
+  const objServico : IServico = {
+    id: 0,
+    descricao: "",
+    empresa_id: 0,
+    preco: 0,
+    tempomedio: "",
+    img_base64: ""
+  }
 
   function carregaServicos(){
     getServicosEmpresa(userState.donoEmpresa)
@@ -43,7 +51,7 @@ export function Servicos() {
           <TextoNome numberOfLines={1}>Serviços</TextoNome>
           <TextoMensagem>Seus serviços cadastrados.</TextoMensagem>
         </AreaMensagemNome>
-        <Icon name='add-circle-outline' size={36} color={theme.colors.select_tab} onPress={() => navigation.navigate('AddServico', {idServico: 0})}/>
+        <Icon name='add-circle-outline' size={36} color={theme.colors.select_tab} onPress={() => navigation.navigate('AddServico', {objServico})}/>
       </AreaHeader>
       <ListaServicos
         data={servicos}

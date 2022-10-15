@@ -8,13 +8,14 @@ import {
 
 interface PrimaryButton extends TouchableOpacityProps{
   titulo: string;
+  backgroundColor?: string;
   onPress: () => void;
 }
 
 
-export default function PrimaryButton({titulo, ...rest}: PrimaryButton){
+export default function PrimaryButton({titulo, backgroundColor, ...rest}: PrimaryButton){
 return (
-   <Container {...rest}>
+   <Container backgroundColor={backgroundColor} {...rest}>
     <Texto>{titulo}</Texto>
    </Container>
   );

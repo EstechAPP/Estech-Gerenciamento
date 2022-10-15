@@ -1,7 +1,7 @@
 export interface IServico{
     id: number;
     descricao: string;
-    preco: number;
+    preco: string;
     tempomedio: string;
     img_base64?: string;
     empresa_id: number;

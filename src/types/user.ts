@@ -15,7 +15,7 @@ export interface IUser{
 }
 
 export interface IUserData{
-    resultado: IUser;
+    resultado: IUser[];
     status: boolean;
     mensagem: string;
 }

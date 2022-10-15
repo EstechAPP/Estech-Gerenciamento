@@ -1,12 +1,19 @@
-import { Platform, TextProps } from 'react-native';
+import { Platform, ScrollViewProps, TextProps } from 'react-native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import styled from 'styled-components/native';
 
-export const Container = styled.View`
+export const Container = styled.ScrollView.attrs({
+   keyboardShouldPersistTaps:'handled',
+   contentContainerStyle:{
+      alignItems: 'center',
+      flex: 1
+   },
+   bounces: false,
+   overScrollMode: 'never'
+})<ScrollViewProps>`
    flex: 1;
-   align-items: center;
 `;
 
 export const AreaHeader = styled.View`
@@ -40,7 +47,7 @@ export const TextoNome = styled.Text<TextProps>`
 
 export const Formulario = styled.View`
 
-    flex: 4;
+    flex: 3;
 
 `;
 
@@ -56,6 +63,9 @@ export const TextoLabel = styled.Text`
 
 export const AreaButton = styled.View`
 
-    flex: 1;
+   flex: 1;
+   /* height: 120px; */
+   justify-content: space-around;
+   margin-bottom: ${getStatusBarHeight()}px;
 
 `;

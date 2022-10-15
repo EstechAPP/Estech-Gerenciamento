@@ -1,11 +1,14 @@
 import { Route, useNavigation } from '@react-navigation/native';
+import currency from 'currency.js';
 import React, { useContext, useState } from 'react';
 import { Alert } from 'react-native';
+import { Masks } from 'react-native-mask-input';
 import { useTheme } from 'styled-components';
-import { CustomInput } from '../../../../components/CustomInput';
+import { CustomInput, CustomMaskInput } from '../../../../components/CustomInput';
 import PrimaryButton from '../../../../components/PrimaryButton';
 import AuthContext from '../../../../context/user';
-import { AlterarServicoAPI, CriarServicoAPI } from '../../../../services/servicos';
+import { AlterarServicoAPI, CriarServicoAPI, deleteServicosEmpresa } from '../../../../services/servicos';
+import { IServico } from '../../../../types/servico';
 // import  Icon from 'react-native-vector-icons/MaterialIcons';
 import { AreaHeader } from '../styles';
 
@@ -20,15 +23,19 @@ import {AreaMensagemNome, Container, Formulario, TextoMensagem,
 export function AddServico({route}) {
     const theme = useTheme();
     const {userState} = useContext(AuthContext);
-    const {idServico} = route.params;
-    const [nomeServico, setNomeServico] = useState('');
-    const [preco, setPreco] = useState<Number>(0);
-    const [tempoMedio, setTempoMedio] = useState('');
+    const {objServico} : {objServico : IServico} = route.params;
+    const [nomeServico, setNomeServico] = useState(objServico.id != 0 ? objServico.descricao : "");
+    const [preco, setPreco] = useState(objServico.id != 0 ? objServico.preco : "");
+    const [tempoMedio, setTempoMedio] = useState(objServico.id != 0 ? objServico.tempomedio : "");
     const navigation = useNavigation();
 
+    const tempoMedioMask = [/\d/, /\d/,":",/\d/, /\d/];
+  
+    
     function cadastrarServico(){
-        if(idServico == 0){
-            CriarServicoAPI(idServico,nomeServico,preco,tempoMedio,userState.donoEmpresa)
+      console.log(preco)
+        if(objServico.id == 0){
+            CriarServicoAPI(objServico.id,nomeServico,preco,tempoMedio,userState.donoEmpresa)
             .then(response => {
                 if(response.data.status){
                     Alert.alert(response.data.mensagem)
@@ -39,9 +46,12 @@ export function AddServico({route}) {
                 console.error(err)
             })
         }else{
-            AlterarServicoAPI(idServico,nomeServico,preco,tempoMedio,userState.donoEmpresa)
+            AlterarServicoAPI(objServico.id,nomeServico,preco,tempoMedio,userState.donoEmpresa)
             .then(response => {
-                console.log(response.data)
+                if(response.data.status){
+                  Alert.alert(response.data.mensagem)
+                  navigation.goBack();
+              }
             })
             .catch(err => {
                 console.error(err)
@@ -49,11 +59,26 @@ export function AddServico({route}) {
         }
     }
 
+    function apagarServico(){
+      deleteServicosEmpresa(objServico.id)
+      .then(response => {
+        if(response.data.status){
+          Alert.alert(response.data.mensagem)
+          navigation.goBack();
+        }
+      })
+      .catch(err => {
+        if(err.data.status){
+          Alert.alert(err.data.mensagem)
+        }
+      })
+    }
+
   return (
-    <Container>
+    <Container >
       <AreaHeader>
         <AreaMensagemNome>
-          <TextoNome numberOfLines={1}>{idServico == 0 ? "Cadastrar novo serviço" : "Alterar serviço"}</TextoNome>
+          <TextoNome numberOfLines={1}>{objServico.id == 0 ? "Cadastrar novo serviço" : "Alterar serviço"}</TextoNome>
           <TextoMensagem>Necessário preenchimento total do formulário.</TextoMensagem>
         </AreaMensagemNome>
       </AreaHeader>
@@ -64,15 +89,22 @@ export function AddServico({route}) {
         </AreaForm>
         <AreaForm>
             <TextoLabel>Preço</TextoLabel>
-            <CustomInput backgroundColor={theme.colors.background_bege} value={preco.toString()} onChangeText={(value) => setPreco(value)}  placeholder="Ex: 20,00" placeholderTextColor={theme.colors.cinza_titulo}/>
+            <CustomMaskInput 
+            mask={Masks.BRL_CURRENCY}
+            backgroundColor={theme.colors.background_bege} keyboardType="number-pad" value={preco.toString()} onChangeText={(mask, unmask) => setPreco(mask)}  placeholder="Ex: 20,00" placeholderTextColor={theme.colors.cinza_titulo}/>
         </AreaForm>
         <AreaForm>
             <TextoLabel>Tempo médio de execução</TextoLabel>
-            <CustomInput backgroundColor={theme.colors.background_bege} value={tempoMedio} onChangeText={(value) => setTempoMedio(value)}  placeholder="Ex: 00:30" placeholderTextColor={theme.colors.cinza_titulo}/>
+            <CustomMaskInput mask={tempoMedioMask} maxLength={5} keyboardType="number-pad" backgroundColor={theme.colors.background_bege} value={tempoMedio} onChangeText={(value) => setTempoMedio(value)}  placeholder="Ex: 00:30" placeholderTextColor={theme.colors.cinza_titulo}/>
         </AreaForm>
       </Formulario>
       <AreaButton>
-        <PrimaryButton titulo={idServico == 0 ? "Cadastrar novo serviço" : "Alterar serviço"} onPress={() => {cadastrarServico()}} />
+        <PrimaryButton titulo={objServico?.id == 0 ? "Cadastrar novo serviço" : "Alterar serviço"} onPress={() => {cadastrarServico()}} />
+        {
+          objServico?.id != 0 && (
+            <PrimaryButton titulo='Apagar serviço' backgroundColor={theme.colors.vermelho_closed} onPress={() => {apagarServico()}} />
+          )
+        }
       </AreaButton>
     </Container>
   );
