@@ -74,7 +74,7 @@ export const TextoLabel = styled.Text`
 export const TextoVinculo = styled.Text`
 
    margin-left: 20px;
-   color: ${({theme}) => theme.colors.cinza_titulo}
+   color: ${({theme}) => theme.colors.cinza_titulo};
 
 `;
 

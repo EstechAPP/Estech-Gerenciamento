@@ -18,5 +18,6 @@ export const Texto = styled.Text`
     color: ${({theme}) => theme.colors.white};
     font-size: ${RFValue(16)}px;
     font-weight: bold;
+    text-align: center;
    
 `;

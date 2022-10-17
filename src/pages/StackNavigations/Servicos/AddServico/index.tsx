@@ -37,7 +37,6 @@ export function AddServico({route}) {
   
     
     function cadastrarServico(){
-      console.log(preco)
         if(objServico.id == 0){
             CriarServicoAPI(objServico.id,nomeServico,preco,tempoMedio,userState.donoEmpresa)
             .then(response => {
@@ -103,7 +102,7 @@ export function AddServico({route}) {
         </AreaForm>
         {objServico.id != 0 && (
           <AreaFormTouch>
-            <TouchVinculo backgroundColor="transparent" onPress={() => {navigation.navigate('VincularFuncionariosServico', {idServico: objServico.id})}}>
+            <TouchVinculo backgroundColor="transparent" onPress={() => {navigation.navigate('VincularFuncionariosServico', {objServico: objServico})}}>
               <Icon name='add-circle-outline' size={24} color={theme.colors.cinza_titulo}/>
               <TextoVinculo>Vincular funcionários ao serviço</TextoVinculo>
             </TouchVinculo>

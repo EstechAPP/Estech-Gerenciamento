@@ -33,3 +33,15 @@ export async function getServicosEmpresa(idEmpresa: number): Promise<AxiosRespon
 export async function deleteServicosEmpresa(idServico: number): Promise<AxiosResponse<IServicoData>>{
     return await API.delete<IServicoData>(`api/Servicos?id=${idServico}`)
 }
+
+export async function postVincularProfissionalServico(funcionarioid: Number, servicoid: Number): Promise<AxiosResponse<IServicoData>>{
+    return await API.post<IServicoData>('api/servicos/vinculaservicoprofissional',{
+        id: 0,
+        funcionarioid,
+        servicoid
+    })
+}
+
+export async function getBuscaProfissionaisServico(idServico: number): Promise<AxiosResponse<IServicoData>>{
+    return await API.get<IServicoData>(`api/servicos/BuscaProfissionaisServico?idServico=${idServico}`)
+}

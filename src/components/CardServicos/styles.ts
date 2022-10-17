@@ -14,8 +14,8 @@ export const Container = styled.TouchableOpacity<TouchableOpacityProps>`
 `;
 
 export const ContainerView = styled.View`
-   width: 298px;
-   height: 53px;
+   width: 334px;
+   height: 60px;
    background-color: ${({theme}) => theme.colors.background_cards};
    margin-bottom: 14px;
    flex-direction: row;
