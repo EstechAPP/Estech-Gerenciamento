@@ -1,4 +1,4 @@
-import { useFocusEffect, useIsFocused } from '@react-navigation/native';
+import { useFocusEffect, useIsFocused, useNavigation } from '@react-navigation/native';
 import React, { useCallback, useContext, useState } from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useTheme } from 'styled-components';
@@ -13,6 +13,7 @@ export function Funcionarios() {
   const theme = useTheme();
   const isFocused = useIsFocused();
   const {userState} = useContext(AuthContext)
+  const navigation = useNavigation();
   const [funcionarios, setFuncionarios] = useState<IUser[]>([])
 
   function carregaFuncionarios(){
@@ -38,12 +39,12 @@ export function Funcionarios() {
           <TextoNome numberOfLines={1}>Funcionários</TextoNome>
           <TextoMensagem>Funcionários de sua empresa</TextoMensagem>
         </AreaMensagemNome>
-        <Icon name='person-add-alt' size={36} color={theme.colors.select_tab}/>
+        <Icon name='person-add-alt' size={36} color={theme.colors.select_tab} onPress={() => {navigation.navigate('AddFuncionario')}}/>
       </AreaHeader>
       <ListaFuncionarios
         data={funcionarios}
         renderItem={({item}) => 
-          <CardProfissional data={item}/>
+          <CardProfissional data={item} atualizaAgenda={carregaFuncionarios}/>
         }
         contentContainerStyle={{alignItems: 'center'}}
         ListEmptyComponent={(

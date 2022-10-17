@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {IUser} from '../../types/user';
-import  Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import {
   Container,
   FotoProfissional,
@@ -12,21 +12,103 @@ import {
   TouchButton,
 } from './styles';
 import theme from '../../styles/theme';
+import {Alert} from 'react-native';
+import { postDesvinculaFuncionario, postVinculaDono } from '../../services/funcionarios';
+import AuthContext from '../../context/user';
 
-export function CardProfissional({data, index}: {data: IUser; index: number}) {
+export function CardProfissional({data, index, atualizaAgenda}: {data: IUser; index: number, atualizaAgenda: () => void}) {
 
+  const {userState} = useContext(AuthContext)
+    
+  function dialogVincula() {
+    Alert.alert(
+      'Vínculo de dono',
+      `Deseja conceder privilégio de dono ao funcionário: ${data.nome} ${data.sobrenome} ?`,
+      [
+        {
+          text: 'Sim',
+          onPress: () => vincularDono(),
+        },
+        {
+          text: 'Não',
+          style: 'cancel',
+        },
+      ],
+      {
+        cancelable: true,
+        onDismiss: () => {},
+      },
+    );
+  }
 
-    function vinculaDono(){
+  function vincularDono(){
+    postVinculaDono(data.email, userState.donoEmpresa)
+    .then(response => {
+      Alert.alert('Privilégio dono', response.data.mensagem)
+      atualizaAgenda();
+    })
+    .catch(err => {
+      console.error(err)
+    })
+  }
 
-    }
+  function dialogDesvinculaFuncionario() {
+    Alert.alert(
+      'Desvinculo de Funcionário',
+      `Deseja desvincular ${data.nome} ${data.sobrenome} de sua empresa?`,
+      [
+        {
+          text: 'Sim',
+          onPress: () => dialogConfirmaDesvinculo(),
+        },
+        {
+          text: 'Não',
+          style: 'cancel'
+        },
+      ],
+      {
+        cancelable: true,
+        onDismiss: () => {},
+      },
+    );
+  }
 
-    function desvincularrFuncionario(){
+  function dialogConfirmaDesvinculo() {
+    Alert.alert(
+      'ATENÇÃO',
+      `Desvínculo de funcionário ocasionárá o cancelamento de todos os agendamentos do funcionário, esta ação é irreversivel.`,
+      [
+        {
+          text: 'Sim',
+          onPress: () => desvincularrFuncionario(),
+        },
+        {
+          text: 'Não',
+          style: 'cancel',
+        },
+      ],
+      {
+        cancelable: true,
+        onDismiss: () => {},
+      },
+    );
+  }
 
-    }
+  function desvincularrFuncionario() {
+    postDesvinculaFuncionario(data.email,userState.id)
+    .then(response => {
+      console.log(response.data)
+      atualizaAgenda();
+    })
+    .catch(err => {
+      console.error(err)
+    })
+
+  }
 
   return (
     <Container>
-      <AreaProfissional index={index}>
+      <AreaProfissional index={index} data={data}>
         <FotoProfissional
           source={
             data.foto_base64
@@ -39,16 +121,25 @@ export function CardProfissional({data, index}: {data: IUser; index: number}) {
             {data.nome} {data.sobrenome}
           </NomeProfissional>
           {data.donoEmpresa != 0 && (
-            <CargoProfissional>*Dono*</CargoProfissional>
+            <CargoProfissional>Privilégio: Dono</CargoProfissional>
           )}
         </AreaNomeCargo>
       </AreaProfissional>
       <AreaButtons>
-        <TouchButton backgroundColor={theme.colors.select_tab} onPress={vinculaDono}>
-            <Icon name='hail' size={20}/>
+      {data.donoEmpresa == 0 && (
+        <TouchButton
+          backgroundColor={theme.colors.select_tab}
+          onPress={dialogVincula}>
+          <Icon name="hail" size={20} />
         </TouchButton>
-        <TouchButton>
-            <Icon name='delete-outline' size={20} onPress={desvincularrFuncionario} />
+      )}
+        <TouchButton
+          onPress={dialogDesvinculaFuncionario}
+        >
+          <Icon
+            name="delete-outline"
+            size={20}
+          />
         </TouchButton>
       </AreaButtons>
     </Container>

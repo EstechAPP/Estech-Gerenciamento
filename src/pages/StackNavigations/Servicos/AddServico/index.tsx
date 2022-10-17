@@ -4,9 +4,11 @@ import React, { useContext, useState } from 'react';
 import { Alert } from 'react-native';
 import { Masks } from 'react-native-mask-input';
 import { useTheme } from 'styled-components';
+import { TouchButton } from '../../../../components/CardProfissional/styles';
 import { CustomInput, CustomMaskInput } from '../../../../components/CustomInput';
 import PrimaryButton from '../../../../components/PrimaryButton';
 import AuthContext from '../../../../context/user';
+import Icon from'react-native-vector-icons/MaterialIcons';
 import { AlterarServicoAPI, CriarServicoAPI, deleteServicosEmpresa } from '../../../../services/servicos';
 import { IServico } from '../../../../types/servico';
 // import  Icon from 'react-native-vector-icons/MaterialIcons';
@@ -17,7 +19,9 @@ import {AreaMensagemNome, Container, Formulario, TextoMensagem,
     AreaForm,
     TextoLabel,
     AreaButton,
-
+    TouchVinculo,
+    TextoVinculo,
+    AreaFormTouch
 } from './styles';
 
 export function AddServico({route}) {
@@ -75,7 +79,7 @@ export function AddServico({route}) {
     }
 
   return (
-    <Container >
+    <Container>
       <AreaHeader>
         <AreaMensagemNome>
           <TextoNome numberOfLines={1}>{objServico.id == 0 ? "Cadastrar novo serviço" : "Alterar serviço"}</TextoNome>
@@ -97,6 +101,14 @@ export function AddServico({route}) {
             <TextoLabel>Tempo médio de execução</TextoLabel>
             <CustomMaskInput mask={tempoMedioMask} maxLength={5} keyboardType="number-pad" backgroundColor={theme.colors.background_bege} value={tempoMedio} onChangeText={(value) => setTempoMedio(value)}  placeholder="Ex: 00:30" placeholderTextColor={theme.colors.cinza_titulo}/>
         </AreaForm>
+        {objServico.id != 0 && (
+          <AreaFormTouch>
+            <TouchVinculo backgroundColor="transparent" onPress={() => {navigation.navigate('VincularFuncionariosServico', {idServico: objServico.id})}}>
+              <Icon name='add-circle-outline' size={24} color={theme.colors.cinza_titulo}/>
+              <TextoVinculo>Vincular funcionários ao serviço</TextoVinculo>
+            </TouchVinculo>
+          </AreaFormTouch>
+        )}
       </Formulario>
       <AreaButton>
         <PrimaryButton titulo={objServico?.id == 0 ? "Cadastrar novo serviço" : "Alterar serviço"} onPress={() => {cadastrarServico()}} />

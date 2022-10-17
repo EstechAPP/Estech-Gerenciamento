@@ -9,13 +9,14 @@ export const Container = styled.View`
 
     width: 360px;
     height: 60px;
+    margin-bottom:  20px;
     flex-direction: row;
     justify-content: center;
 `;
 
 
 export const AreaProfissional = styled.View`
-   width: 200px;
+   width: ${({data}) => data.donoEmpresa != 0 ? 270 : 200}px;
    height: 60px;
    background-color: ${({theme}) => theme.colors.background_cards};
    flex-direction: row;

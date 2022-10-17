@@ -22,6 +22,8 @@ import { Funcionarios } from '../pages/StackNavigations/Funcionarios';
 import { Categorias } from '../pages/StackNavigations/Categorias';
 import { FormasPagamento } from '../pages/StackNavigations/FormasPagamento';
 import { AddServico } from '../pages/StackNavigations/Servicos/AddServico';
+import { AddFuncionario } from '../pages/StackNavigations/Funcionarios/AddFuncionario';
+import { VincularFuncionariosServico } from '../pages/StackNavigations/Servicos/VincularFuncionariosServico';
 
 
 
@@ -120,6 +122,16 @@ function RoutesNavigator() {
         <Stack.Screen
           name="AddServico"
           component={AddServico}
+          options={StackOptions}
+        />
+        <Stack.Screen
+          name="VincularFuncionariosServico"
+          component={VincularFuncionariosServico}
+          options={StackOptions}
+        />
+        <Stack.Screen
+          name="AddFuncionario"
+          component={AddFuncionario}
           options={StackOptions}
         />
         <Stack.Screen

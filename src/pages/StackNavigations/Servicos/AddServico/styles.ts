@@ -48,12 +48,22 @@ export const TextoNome = styled.Text<TextProps>`
 export const Formulario = styled.View`
 
     flex: 3;
+    /* align-items: center; */
 
 `;
 
 export const AreaForm = styled.View`
 
     margin-top: ${hp('3%')}px;
+    /* align-items: center; */
+
+
+`;
+export const AreaFormTouch = styled(AreaForm)`
+
+    align-items: center;
+    
+
 
 `;
 export const TextoLabel = styled.Text`
@@ -61,6 +71,23 @@ export const TextoLabel = styled.Text`
 
 `;
 
+export const TextoVinculo = styled.Text`
+
+   margin-left: 20px;
+   color: ${({theme}) => theme.colors.cinza_titulo}
+
+`;
+
+export const TouchVinculo = styled.TouchableOpacity`
+   width: 90%;
+   flex-direction: row;
+   align-items: center;
+   justify-content: center;
+   margin-top: 30px;
+   border: ${({theme}) => theme.colors.select_tab} 2px dashed;
+   padding: 5px;
+
+`;
 export const AreaButton = styled.View`
 
    flex: 1;
