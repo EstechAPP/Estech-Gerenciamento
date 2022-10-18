@@ -42,6 +42,14 @@ export async function postVincularProfissionalServico(funcionarioid: Number, ser
     })
 }
 
+export async function postDesvincularProfissionalServico(funcionarioid: Number, servicoid: Number): Promise<AxiosResponse<IServicoData>>{
+    return await API.post<IServicoData>('api/servicos/desvinculaservicoprofissional',{
+        id: 0,
+        funcionarioid,
+        servicoid
+    })
+}
+
 export async function getBuscaProfissionaisServico(idServico: number): Promise<AxiosResponse<IServicoData>>{
     return await API.get<IServicoData>(`api/servicos/BuscaProfissionaisServico?idServico=${idServico}`)
 }

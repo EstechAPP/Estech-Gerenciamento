@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import moment from 'moment';
 import React, { useContext } from 'react';
+import { Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { useTheme } from 'styled-components';
 import { ButtonPerfil } from '../../../components/ButtonPerfil';
@@ -29,7 +30,7 @@ export function AlterarEmpresa(){
     const navigation = useNavigation();
     const {userState} = useContext(AuthContext);
 
-return (
+return ( 
    <Container>
         <Header>
             <AreaLogoCapa>
@@ -60,7 +61,7 @@ return (
             <ButtonPerfil iconName='miscellaneous-services' titulo='Serviços' onPress={() => navigation.navigate('Servicos')}/>
             <ButtonPerfil iconName='person' titulo='Funcionários' onPress={() => navigation.navigate('Funcionarios')}/>
             <ButtonPerfil iconName='category' space titulo='Categorias' onPress={() => navigation.navigate('Categorias')}/>
-            <ButtonPerfil iconName='payments' space titulo='Formas de Pagamento' onPress={() => navigation.navigate('FormasPagamento')}/>
+            <ButtonPerfil iconName='payments' space titulo='Formas de Pagamento' onPress={() => Alert.alert("Em breve!", "Requisito adiado. 😕")}/>
         </AreaButtons>
    </Container>
   );

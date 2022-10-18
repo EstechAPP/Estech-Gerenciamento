@@ -11,7 +11,7 @@ export function Categorias() {
       <AreaHeader>
         <AreaMensagemNome>
           <TextoNome numberOfLines={1}>Categorias</TextoNome>
-          <TextoMensagem>Categorias de sua empresa</TextoMensagem>
+          <TextoMensagem>Selecione as categorias que sua empresa se encaixa.</TextoMensagem>
         </AreaMensagemNome>
       </AreaHeader>
     </Container>

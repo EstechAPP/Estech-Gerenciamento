@@ -1,11 +1,12 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
+import { Alert } from 'react-native';
 import { CardProfissionalSelect } from '../../../../components/CardProfissionalSelect';
 import { CardServicoPreview } from '../../../../components/CardServicos';
 import PrimaryButton from '../../../../components/PrimaryButton';
 import AuthContext from '../../../../context/user';
 import { getFuncionariosEmpresa } from '../../../../services/funcionarios';
-import { getBuscaProfissionaisServico, postVincularProfissionalServico } from '../../../../services/servicos';
+import { getBuscaProfissionaisServico, postDesvincularProfissionalServico, postVincularProfissionalServico } from '../../../../services/servicos';
 import { IServico } from '../../../../types/servico';
 import { IUser } from '../../../../types/user';
 import { AreaHeader, AreaMensagemNome, TextoMensagem, TextoNome  } from '../styles';
@@ -61,33 +62,26 @@ export function VincularFuncionariosServico({route}){
 
   function selectItem(item : IUser){
     if (funcionariosSelected.includes(item.id)) {
-      const newListItems = funcionariosSelected.filter(listItem => listItem !== item.id);
-      return setFuncionariosSelected([...newListItems]);
+      postDesvincularProfissionalServico(item.id, objServico.id)
+      .then(response => {
+        Alert.alert("Desvinculado com sucesso!", response.data.mensagem)
+        const newListItems = funcionariosSelected.filter(listItem => listItem !== item.id);
+        return setFuncionariosSelected([...newListItems]);
+      })
+      .catch(err => {
+        Alert.alert("Tivemos um problema ao desvincular funcionário", err.data.mensagem)
+      })
+    }else{
+      postVincularProfissionalServico(item.id, objServico.id)
+      .then(response => {
+        Alert.alert("Vinculado com sucesso!", response.data.mensagem)
+        return setFuncionariosSelected([...funcionariosSelected, item.id]);
+      })
+      .catch(err => {
+        Alert.alert("Tivemos um problema ao vincular funcionário", err.data.mensagem)
+      })
     }
-    setFuncionariosSelected([...funcionariosSelected, item.id]);
   }
-
-
-
-
-  function vincularFuncionarios(){
-    funcionariosSelected.forEach(value => {
-      if(funcionariosVinculosOld.indexOf(value) == -1){
-        // POSSUI O VALOR ENTÃO NÃO VAI FAZER NADA;
-        console.log('DELETE: ' + value);
-      }
-      else{
-      }
-    })
-
-    // funcionariosVinculosOld.forEach(value => {
-    //   if(funcionariosSelected.includes(value)){
-    //     console.log('CREATE: ' + value);
-    //   }
-    // })
-  }
-
-
 
 return (
    <Container>
@@ -110,9 +104,9 @@ return (
           <CardProfissionalSelect data={item} selected={funcionariosSelected.includes(item.id)} onPress={() => {selectItem(item)}} />
         )}
         />
-      <AreaButton>
-          <PrimaryButton titulo={`Vincular funcionários ${'\n'} ao serviço`} onPress={vincularFuncionarios} />
-      </AreaButton>
+      {/* <AreaButton>
+          <PrimaryButton titulo={`Vincular funcionários ${'\n'} ao serviço`} />
+      </AreaButton> */}
    </Container>
   );
 }

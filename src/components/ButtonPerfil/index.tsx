@@ -11,7 +11,7 @@ import {
 interface ButtonPerfil extends TouchableOpacityProps{
     titulo: string;
     iconName: string;
-    space: boolean;
+    space?: boolean;
     onPress: () => void;
   }
 
