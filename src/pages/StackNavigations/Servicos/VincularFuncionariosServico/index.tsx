@@ -23,9 +23,9 @@ export function VincularFuncionariosServico({route}){
 
   const {objServico} : {objServico : IServico} = route.params
   const {userState} = useContext(AuthContext);
+  
   const [funcionarios, setFuncionarios] = useState<IUser[]>([]);
 
-  const [funcionariosVinculosOld, setFuncionariosVinculosOld] = useState<Number[]>([]);
   const [funcionariosSelected, setFuncionariosSelected] = useState<Number[]>([])
 
   const requisicaoum = getFuncionariosEmpresa(userState.donoEmpresa);
@@ -44,7 +44,7 @@ export function VincularFuncionariosServico({route}){
         const responsedois = responses[1].data.resultado;
         setFuncionarios(responseum)
 
-        responsedois.forEach(value => {
+        responseum.forEach(value => {
           responsedois.forEach(value2 => {
             if(value2.id == value.id){
               arrayVinculos.push(value2.id)

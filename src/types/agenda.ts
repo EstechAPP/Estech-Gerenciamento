@@ -14,10 +14,6 @@ export interface IAgendamento{
     funcionario_id: number;
     empresa_id: number;
     servicos_id: number;
-    logoEmpresa?: string | undefined;
-    nomeFantasiaEmpresa: string;
-    nomeServico: string;
-    valorServico: number;
 }
 
 export interface IDataAgendamento{

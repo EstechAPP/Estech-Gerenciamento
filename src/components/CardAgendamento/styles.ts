@@ -68,9 +68,9 @@ export const TouchDetalhes = styled.TouchableOpacity`
 
 `;
 
-export const TouchCancelar = styled.TouchableOpacity`
+export const TouchCancelarFinalizar = styled.TouchableOpacity`
 
-    background-color: ${({theme}) => theme.colors.vermelho_closed};
+    background-color: ${({theme, tipoAgenda}) =>  tipoAgenda ? theme.colors.verde_open : theme.colors.vermelho_closed};
     border-radius: 4px;
     width: 190px;
     align-items: center;

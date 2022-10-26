@@ -24,6 +24,7 @@ import { FormasPagamento } from '../pages/StackNavigations/FormasPagamento';
 import { AddServico } from '../pages/StackNavigations/Servicos/AddServico';
 import { AddFuncionario } from '../pages/StackNavigations/Funcionarios/AddFuncionario';
 import { VincularFuncionariosServico } from '../pages/StackNavigations/Servicos/VincularFuncionariosServico';
+import { FinalizaAgenda } from '../pages/StackNavigations/FinalizaAgenda';
 
 
 
@@ -41,7 +42,8 @@ function TabNavigation(){
       tabBarInactiveTintColor: theme.colors.cinza_titulo,
       tabBarLabelStyle: {
         fontSize: 13
-      }
+      },
+      unmountOnBlur: true
     }
     return options;
   }
@@ -147,6 +149,11 @@ function RoutesNavigator() {
         <Stack.Screen
           name="FormasPagamento"
           component={FormasPagamento}
+          options={StackOptions}
+        />
+        <Stack.Screen
+          name="FinalizaAgenda"
+          component={FinalizaAgenda}
           options={StackOptions}
         />
 

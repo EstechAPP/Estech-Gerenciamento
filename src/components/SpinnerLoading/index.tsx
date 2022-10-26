@@ -1,15 +1,24 @@
+import AnimatedLottieView from 'lottie-react-native';
 import React from 'react';
-import { ActivityIndicator } from 'react-native';
+
 
 import {
- Container, TextoLoading
+ Container, Texto
 } from './styles';
 
 export function SpinnerLoading({titulo} : {titulo: string}){
 return (
    <Container>
-        <ActivityIndicator/>
-        <TextoLoading>{titulo}</TextoLoading>
+    <AnimatedLottieView
+      source={require('../../../assets/barberloading.json')}
+      loop
+      autoPlay
+      style={{
+        width: 62,
+        height: 62
+      }}
+    />
+        <Texto>{titulo}</Texto>
    </Container>
   );
 }

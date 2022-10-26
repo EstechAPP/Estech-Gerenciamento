@@ -21,7 +21,7 @@ export interface IEmpresa{
 
 export interface IEmpresaData{
     status: boolean;
-    resultado: IEmpresa[];
+    resultado: IEmpresa;
     mensagem: string;
 }
 

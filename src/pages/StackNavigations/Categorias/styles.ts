@@ -1,8 +1,9 @@
-import { Platform, TextProps } from 'react-native';
+import { FlatList, Platform, TextProps } from 'react-native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import styled from 'styled-components/native';
+import { IServico } from '../../../types/servico';
 
 export const Container = styled.View`
    flex: 1;
@@ -22,7 +23,6 @@ export const AreaHeader = styled.View`
 export const AreaMensagemNome = styled.View`
 
 
-
 `;
 export const TextoMensagem = styled.Text`
 
@@ -37,4 +37,8 @@ export const TextoNome = styled.Text<TextProps>`
    font-weight: bold;
 
 
+`;
+
+export const ListaCategorias = styled(FlatList as new () => FlatList<IServico>)`
+   width: 100%;
 `;

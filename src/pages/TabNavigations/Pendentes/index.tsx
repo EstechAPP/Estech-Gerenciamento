@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { CardConfirmacao } from '../../../components/CardConfirmacao';
+import AuthContext from '../../../context/user';
+import { getPendentesFuncionario } from '../../../services/agenda';
+import { IAgendaServicoUsuario } from '../../../types/AgendaServicoUsuario';
 
 import {
  Container,
@@ -11,8 +14,27 @@ import {
 } from './styles';
 
 export function Pendentes(){
+  
+  const {userState} = useContext(AuthContext)
+  const [pendentes, setPendentes] = useState<IAgendaServicoUsuario[]>([])
+  const [refreshing, setRefreshing] = useState(false);
 
-  const data = [1,2,3,4]
+  useEffect(() => {
+    attLista()
+  }, [])
+
+
+  function attLista(){
+    setRefreshing(true);
+    getPendentesFuncionario(userState.id)
+    .then(response => {
+      setRefreshing(false);
+      setPendentes(response.data.resultado)
+    })
+    .catch(err => {
+      setRefreshing(false);
+    })
+  }
 
 return (
    <Container>
@@ -23,13 +45,13 @@ return (
         </AreaMensagemNome>
     </AreaHeader>
     <ListaAgendamentos
-      data={data}
+      data={pendentes}
       contentContainerStyle={{alignItems: 'center'}}
       ListEmptyComponent={(
         <TextoMensagem>Você não possui agendamentos pendentes.</TextoMensagem>
       )}
       renderItem={({item, index}) => (
-        <CardConfirmacao item={item} index={index}/>
+        <CardConfirmacao item={item} index={index} attlista={attLista}/>
       )}
     />
    </Container>

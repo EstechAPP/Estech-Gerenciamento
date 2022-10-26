@@ -62,6 +62,7 @@ export const CardFaturamento = styled.View`
    background-color: ${({theme}) => theme.colors.background_bege};
    justify-content: space-around;
    border-radius: 4px;
+   align-items: center;
 
 `;
 export const TextoFaturamento = styled.Text`
@@ -140,8 +141,9 @@ export const AreaMiniCards = styled.View`
 
 export const AreaProximoCliente = styled.View`
 
-   width: 100%;
+   width: ${wp('85%')}px;
    align-items: center;
+   justify-content: center;
    margin-top: ${hp('1.5%')}px;
 
 `;
@@ -152,3 +154,11 @@ export const TextoProximoCliente = styled.Text`
    font-weight: bold;
 
 `;
+
+export const ProximoClienteVazio = styled.Text`
+
+   margin-top: ${hp('3%')}px;
+   font-size: ${RFValue(14)}px;
+   text-align: center;
+`;
+

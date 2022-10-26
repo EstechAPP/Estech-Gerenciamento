@@ -20,6 +20,10 @@
 	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+  	<string>Precisamos de sua permissão para utilizar a galeria do dispositivo</string>
+	<key>NSCameraUsageDescription</key>
+  	<string>Precisamos de sua permissão para utilizar a câmera do dispositivo</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>

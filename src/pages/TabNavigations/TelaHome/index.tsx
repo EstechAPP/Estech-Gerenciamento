@@ -1,5 +1,5 @@
-import React, { ComponentProps, useContext, useEffect, useState } from 'react';
-import {Alert, StatusBar} from 'react-native'
+import React, { ComponentProps, useCallback, useContext, useEffect, useState } from 'react';
+import {ActivityIndicator, Alert, StatusBar} from 'react-native'
 import { useTheme } from 'styled-components';
 
 import {
@@ -22,23 +22,51 @@ import {
  AreaMiniCards,
  AreaProximoCliente,
  TextoProximoCliente,
+ ProximoClienteVazio
 
 } from './styles';
 
 import AuthContext from '../../../context/user';
-import { ICategorias } from '../../../types/categorias';
-import { IEmpresa } from '../../../types/empresa';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useIsFocused, useNavigation } from '@react-navigation/native';
 import { CardAgendamento } from '../../../components/CardAgendamento';
+import { getInfoHomeFuncionario, getProximaClienteFuncionario} from '../../../services/agenda';
+import { IAgendaServicoUsuario } from '../../../types/AgendaServicoUsuario';
+import axios from 'axios';
+import { IInfoHomeFuncionario } from '../../../types/infoHomeFuncionario';
+import { IAgendamento } from '../../../types/agenda';
 
 export default function TelaHome(){
 
   const theme = useTheme();
   const navigation = useNavigation();
   const {userState} = useContext(AuthContext);
-  const [visible, setVisible] = useState(false);
-  const [listaCategorias, setListaCategorias] = useState<ICategorias[]>([]);
-  const [listaEstabelecimentos, setListaEstabelecimentos] = useState<IEmpresa[]>([]);
+  const [infoFuncionario, setInfoFuncionario] = useState<IInfoHomeFuncionario>();
+  const [proximoCliente, setProximoCliente] = useState<IAgendamento>()
+  const [refreshing, setRefreshing] = useState<boolean>(false);
+  const isFocused = useIsFocused();
+
+  const requisicaoum = getInfoHomeFuncionario(userState.id);
+  const requisicaodois = getProximaClienteFuncionario(userState.id)
+
+  useFocusEffect(
+    useCallback(() => {
+      setRefreshing(true)
+      axios.all([requisicaoum, requisicaodois])
+      .then(
+        axios.spread((...responses) => {
+          const responseum = responses[0].data.resultado;
+          const responsedois = responses[1].data.resultado;
+          setInfoFuncionario(responseum)
+          setProximoCliente(responsedois)
+          setRefreshing(false)
+        })
+      )
+      .catch(err => {
+        setRefreshing(false)
+        console.error(err);
+      })
+    }, [isFocused])
+  )
 
 
 return (
@@ -65,7 +93,7 @@ return (
           Faturamento do dia sobre seus serviços prestados
         </TextoFaturamento>
         <ValorFaturamento>
-          R$ 120,00
+        {refreshing ? <ActivityIndicator/> : infoFuncionario?.faturamentoDia}
         </ValorFaturamento>
       </CardFaturamento>
       <CardAvaliacao>
@@ -73,7 +101,7 @@ return (
           Avaliação media de{'\n'}sua empresa
         </TextoAvaliacao>
         <ValorAvaliacao>
-          5.0
+        {refreshing ? <ActivityIndicator/> : infoFuncionario?.mediaEmpresa}
         </ValorAvaliacao>
       </CardAvaliacao>
       <AreaMiniCards>
@@ -82,7 +110,7 @@ return (
             Aguardando Confirmação
           </TextoMiniCard>
           <ValorMiniCard>
-            100
+          {refreshing ? <ActivityIndicator/> : infoFuncionario?.aguardandoConfirmacao}
           </ValorMiniCard>
         </MiniCard>
         <MiniCard>
@@ -90,7 +118,7 @@ return (
             Serviços realizados
           </TextoMiniCard>
           <ValorMiniCard>
-            100
+            {refreshing ? <ActivityIndicator/> : infoFuncionario?.servicosRealizados}
           </ValorMiniCard>
         </MiniCard>
       </AreaMiniCards>
@@ -98,7 +126,12 @@ return (
           Próximo cliente
         </TextoProximoCliente>
       <AreaProximoCliente>
-        <CardAgendamento/>
+      {refreshing ? <ActivityIndicator/> : 
+        proximoCliente != null ? 
+        <CardAgendamento item={proximoCliente} index={0} />
+        :
+        <ProximoClienteVazio>Você não possui agendamento.</ProximoClienteVazio>
+      }
       </AreaProximoCliente>
     </AreaInformacoes>
    </Container>

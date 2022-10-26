@@ -1,5 +1,9 @@
+import moment from 'moment';
 import React from 'react';
+import { Alert } from 'react-native';
+import { postConfirmaRecusaAgendamento } from '../../services/agenda';
 import { IAgendamento } from '../../types/agenda';
+import { IAgendaServicoUsuario } from '../../types/AgendaServicoUsuario';
 
 import {
  Container,
@@ -18,28 +22,59 @@ import {
  TextStatus,
 } from './styles';
 
-export function CardConfirmacao({item, index} : {item: IAgendamento, index: number}){
+export function CardConfirmacao({item, index, attlista} : {item: IAgendaServicoUsuario, index: number, attlista: () => void}){
+
+function DialogConfirmacao(statusAgendamento : boolean){
+
+    Alert.alert(`${statusAgendamento ? "Confirmação Agendamento" : "Recusa do agendamento"}`,`Deseja realizar a ${statusAgendamento ? "confirmação" : "recusa"} do agendamento?`, [
+        {
+            text: 'Sim',
+            style: 'default',
+            onPress: () => ConfirmaRecusaAgendamento(statusAgendamento)
+        },
+        {
+            text: 'Não',
+            style: 'cancel'
+        }
+    ] )
+}
+
+function ConfirmaRecusaAgendamento(statusAgendamento: boolean){
+    postConfirmaRecusaAgendamento(item.id, statusAgendamento)
+    .then(response => {
+        attlista()
+        Alert.alert(`${statusAgendamento ? "Confirmação Agendamento" : "Recusa do agendamento"}`, `Agendamento ${statusAgendamento ? "confirmado" : "recusado"} com sucesso!`)    
+    })
+    .catch(error => {
+        Alert.alert('Tivemos um problema em processar a requisição', error.response.data.mensagem)
+    })
+}
+
 return (
    <Container index={index} >
         <AreaFotoCliente>
-            <FotoCliente source={require('../../../assets/no-profile-icon.png')}/>
+            <FotoCliente source={item.fotoClienteBase64 ? {uri: item.fotoClienteBase64} : require('../../../assets/no-profile-icon.png')}/>
         </AreaFotoCliente>
         <AreaInformacoes>
             <AreaInfo>
-                <NomeCliente>Matheus Henrique Carvalho Pereira</NomeCliente>
+                <NomeCliente>{item.nomeCliente}</NomeCliente>
             </AreaInfo>
             <AreaInfo>
                 <HorarioAgendamento>Data: </HorarioAgendamento>
-                <ValorHorario>Hoje às 15:30</ValorHorario>
+                <ValorHorario>{moment(item.dataAgendamento).format('lll')}</ValorHorario>
+            </AreaInfo>
+            <AreaInfo>
+                <HorarioAgendamento>Dia da semana: </HorarioAgendamento>
+                <ValorHorario>{moment(item.dataAgendamento).format('dddd')}</ValorHorario>
             </AreaInfo>
             <TouchDetalhes>
                 <DetalhesAgendamento>Detalhes do Agendamento</DetalhesAgendamento>
             </TouchDetalhes>
             <AreaStatus>
-                <TouchConfirmar>
+                <TouchConfirmar onPress={() => DialogConfirmacao(true)}>
                     <TextStatus>Confirmar</TextStatus>
                 </TouchConfirmar>
-                <TouchCancelar>
+                <TouchCancelar onPress={() => DialogConfirmacao(false)}>
                     <TextStatus>Recusar</TextStatus>
                 </TouchCancelar>
             </AreaStatus>

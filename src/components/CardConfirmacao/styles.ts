@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
    width: 322px;
-   height: 128px;
+   height: 148px;
    background-color: ${({theme}) => theme.colors.background_bege};
    flex-direction: row;
    align-items: center;
@@ -89,7 +89,7 @@ export const TouchConfirmar = styled.TouchableOpacity`
 
 export const AreaInfo = styled.View`
 
-    width: 100%;
+    width: 210px;
     flex-direction: row;
 
 `;

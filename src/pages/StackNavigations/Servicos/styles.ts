@@ -29,6 +29,7 @@ export const TextoMensagem = styled.Text`
 
    font-family: ${({theme}) => theme.fonts.Primary_Font};
    font-size: ${RFValue(14)}px;
+   text-align: center;
 
 `;
 export const TextoNome = styled.Text<TextProps>`
