@@ -25,6 +25,7 @@ import { AddServico } from '../pages/StackNavigations/Servicos/AddServico';
 import { AddFuncionario } from '../pages/StackNavigations/Funcionarios/AddFuncionario';
 import { VincularFuncionariosServico } from '../pages/StackNavigations/Servicos/VincularFuncionariosServico';
 import { FinalizaAgenda } from '../pages/StackNavigations/FinalizaAgenda';
+import { ModalDetalhes } from '../components/ModalDetalhes';
 
 
 
@@ -155,6 +156,11 @@ function RoutesNavigator() {
           name="FinalizaAgenda"
           component={FinalizaAgenda}
           options={StackOptions}
+        />
+        <Stack.Screen
+          name="ModalDetalhes"
+          component={ModalDetalhes}
+          options={{presentation: 'modal', headerShown: false}}
         />
 
       </Stack.Navigator>

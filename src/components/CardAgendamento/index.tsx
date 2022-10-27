@@ -1,6 +1,7 @@
+import { useNavigation } from '@react-navigation/native';
 import moment from 'moment';
-import React, { useContext } from 'react';
-import { Alert } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { Alert, Modal } from 'react-native';
 import { postCancelarAgendamento, postFinalizarAgendamento } from '../../services/agenda';
 import { IAgendamento } from '../../types/agenda';
 import { IAgendaServicoUsuario } from '../../types/AgendaServicoUsuario';
@@ -22,7 +23,7 @@ import {
 
 export function CardAgendamento({item, index, tipoAgenda, attlista, idFuncionario} : {item: IAgendaServicoUsuario, index: number, tipoAgenda: string, attlista?: () => void, idFuncionario: number}){
 
-
+    const navigation = useNavigation();
 
     function finalizarAgendamento(){
         Alert.alert('Finalizar agendamento', "Deseja finalizar o agendamento?", [
@@ -72,6 +73,8 @@ export function CardAgendamento({item, index, tipoAgenda, attlista, idFuncionari
         ] )
     }
 
+
+
 return (
    <Container index={index}>
         <AreaFotoCliente>
@@ -85,7 +88,7 @@ return (
                 <HorarioAgendamento>Data: </HorarioAgendamento>
                 <ValorHorario>{moment(item.dataAgendamento).calendar()}</ValorHorario>
             </AreaInfo>
-            <TouchDetalhes>
+            <TouchDetalhes onPress={() => navigation.navigate("ModalDetalhes", {dados: item})}>
                 <DetalhesAgendamento>Detalhes do Agendamento</DetalhesAgendamento>
             </TouchDetalhes>
             {tipoAgenda == "Finalizar" ? (

@@ -25,9 +25,10 @@ import {
 
 } from './styles';
 import { AlterarFotoUsuario } from '../../../services/auth';
-// import { AlterarFotoUsuario } from '../../../services/auth';
-// import Spinner from 'react-native-loading-spinner-overlay/lib';
-// import { SpinnerLoading } from '../../../components/SpinnerLoading';
+import { getDadosEmpresa } from '../../../services/empresa';
+import Spinner from 'react-native-loading-spinner-overlay/lib';
+import { SpinnerLoading } from '../../../components/SpinnerLoading';
+
 
 export default function Perfil(){
   const theme = useTheme();
@@ -171,12 +172,22 @@ export default function Perfil(){
     }
   }
 
+  async function carregaDadosEmpresa(){
+    setVisible(true);
+    getDadosEmpresa(userState.donoEmpresa)
+    .then(response => {
+      setVisible(false);
+      navigation.navigate("AlterarEmpresa", {empresa: response.data.resultado})
+    })
+    .catch(err => {
+      setVisible(false);
+      Alert.alert("Tivemos um problema em processar sua requisição", err.data.mensagem)
+    })
+  }
 
 return (
    <Container>
-    {/* <Spinner visible={visible} customIndicator={(
-      <SpinnerLoading titulo='Alterando foto...' />
-    )}  /> */}
+    <Spinner visible={visible} customIndicator={<SpinnerLoading titulo='Carregando dados da empresa...'/>} />
     <AreaPerfil>
       <AreaFoto>
       {userState.foto_base64 ? (
@@ -205,7 +216,7 @@ return (
     </AreaPerfil>
     <AreaButtons>
       <ButtonPerfil titulo='Sair' iconName='logout' onPress={logout} />
-      <ButtonPerfil titulo='Alterar Empresa' iconName='edit' onPress={() => {navigation.navigate('AlterarEmpresa')}}/>
+      <ButtonPerfil titulo='Alterar Empresa' iconName='edit' onPress={carregaDadosEmpresa}/>
     </AreaButtons>
    </Container>
   );

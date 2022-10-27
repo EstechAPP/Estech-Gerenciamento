@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import { useTheme } from 'styled-components';
 import { ButtonPerfil } from '../../../components/ButtonPerfil';
 import AuthContext from '../../../context/user';
-import { alterarCapaEmpresa, alterarLogoTipoEmpresa, getDadosEmpresa } from '../../../services/empresa';
+import { alterarCapaEmpresa, alterarLogoTipoEmpresa } from '../../../services/empresa';
 import { IEmpresa } from '../../../types/empresa';
 import * as ImagePicker from 'react-native-image-picker';
 
@@ -26,29 +26,14 @@ import {
  AreaButtons,
 
 } from './styles';
-import Spinner from 'react-native-loading-spinner-overlay';
-import { SpinnerLoading } from '../../../components/SpinnerLoading';
 
-export function AlterarEmpresa(){
+export function AlterarEmpresa({route}){
     const theme = useTheme();
+    const {empresa} : {empresa: IEmpresa} = route.params
     const navigation = useNavigation();
     const {userState} = useContext(AuthContext);
-    const [empresa, setEmpresa] = useState<IEmpresa>();
+    const [empresaState, setEmpresa] = useState<IEmpresa>(empresa);
     const [refreshing, setRefreshing] = useState(true);
-
-    useEffect(() => {
-        setRefreshing(true);
-        getDadosEmpresa(userState.donoEmpresa)
-        .then(response => {
-          setEmpresa(response.data.resultado)
-          setRefreshing(false);
-        })
-        .catch(err => {
-          setRefreshing(false);
-          Alert.alert("Tivemos um problema em processar sua requisição", err.data.mensagem)
-        })
-    }, [])
-
 
     function SelecionaImagem(tipoImagem: string) {
         Alert.alert(
@@ -204,29 +189,28 @@ export function AlterarEmpresa(){
 
 return (
    <Container>
-    <Spinner visible={refreshing} customIndicator={<SpinnerLoading titulo='Carregando dados da empresa...'/>} />
         <Header>
             <AreaLogoCapa>
                 <AreaFoto>
                     <TituloImagem>Logotipo</TituloImagem>
-                    <ImagemPreview source={empresa?.logoEmp ? {uri: empresa.logoEmp} : require('../../../../assets/noimageavailable.png')}/>
+                    <ImagemPreview source={empresaState?.logoEmp ? {uri: empresaState.logoEmp} : require('../../../../assets/noimageavailable.png')}/>
                     <TouchUpload onPress={() => SelecionaImagem('Logo')}>
                         <Icon name="picture" size={24} color={theme.colors.white} />
                     </TouchUpload>
                 </AreaFoto>
                 <AreaFoto>
                     <TituloImagem>Capa</TituloImagem>
-                    <ImagemPreview source={empresa?.capaEmp ? {uri: empresa.capaEmp} : require('../../../../assets/noimageavailable.png')}/>
+                    <ImagemPreview source={empresaState?.capaEmp ? {uri: empresaState.capaEmp} : require('../../../../assets/noimageavailable.png')}/>
                     <TouchUpload onPress={() => SelecionaImagem('Capa')}>
                         <Icon name="picture" size={24} color={theme.colors.white} />
                     </TouchUpload>
                 </AreaFoto>
             </AreaLogoCapa>
             <InfoEmpresa>
-                <TituloEmpresa>{empresa?.nomefantasia}</TituloEmpresa>
+                <TituloEmpresa>{empresaState?.nomefantasia}</TituloEmpresa>
                 <AreaDataCadastro>
                     <DataCadastro>Razão Social: </DataCadastro>
-                    <ResultCadastro>{empresa?.razaosocial}</ResultCadastro>
+                    <ResultCadastro>{empresaState?.razaosocial}</ResultCadastro>
                 </AreaDataCadastro>
             </InfoEmpresa>
         </Header>

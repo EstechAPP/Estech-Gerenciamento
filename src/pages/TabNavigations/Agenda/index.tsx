@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useTheme } from 'styled-components';
 import { CardAgendamento } from '../../../components/CardAgendamento';
+import { SpinnerLoading } from '../../../components/SpinnerLoading';
 import AuthContext from '../../../context/user';
 import { getAgendamentosFuncionarios } from '../../../services/agenda';
 import { IAgendamento } from '../../../types/agenda';
@@ -49,6 +50,9 @@ export function TelaAgenda() {
         </AreaMensagemNome>
         <Icon name='calendar-check-o' size={36} color={theme.colors.select_tab} onPress={() => navigation.navigate('FinalizaAgenda')}/>
       </AreaHeader>
+      {refreshing ? <SpinnerLoading titulo="Carregando..."/> 
+      :
+      (
       <ListaAgendamentos
         data={agenda}
         contentContainerStyle={{alignItems: 'center'}}
@@ -59,6 +63,7 @@ export function TelaAgenda() {
           <CardAgendamento item={item} index={index} tipoAgenda="Cancelar" attlista={attLista} idFuncionario={userState.id} />
         )}
       />
+    )}
     </Container>
   );
 }

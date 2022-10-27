@@ -3,6 +3,7 @@ export interface IInfoHomeFuncionario {
     aguardandoConfirmacao: number;
     mediaEmpresa: number;
     faturamentoDia: string;
+    mediaFuncionario: number;
 }
 
 export interface IDataInfoHomeFuncionario {

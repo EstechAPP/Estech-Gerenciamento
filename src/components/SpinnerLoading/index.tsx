@@ -1,5 +1,6 @@
-import AnimatedLottieView from 'lottie-react-native';
 import React from 'react';
+import { ActivityIndicator } from 'react-native';
+import theme from '../../styles/theme';
 
 
 import {
@@ -8,17 +9,9 @@ import {
 
 export function SpinnerLoading({titulo} : {titulo: string}){
 return (
-   <Container>
-    <AnimatedLottieView
-      source={require('../../../assets/barberloading.json')}
-      loop
-      autoPlay
-      style={{
-        width: 62,
-        height: 62
-      }}
-    />
-        <Texto>{titulo}</Texto>
+   <Container> 
+    <ActivityIndicator color={theme.colors.select_tab}/> 
+    <Texto>{titulo}</Texto>
    </Container>
   );
 }

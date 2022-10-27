@@ -41,7 +41,7 @@ export default function TelaHome(){
   const navigation = useNavigation();
   const {userState} = useContext(AuthContext);
   const [infoFuncionario, setInfoFuncionario] = useState<IInfoHomeFuncionario>();
-  const [proximoCliente, setProximoCliente] = useState<IAgendamento>()
+  const [proximoCliente, setProximoCliente] = useState<IAgendaServicoUsuario>()
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const isFocused = useIsFocused();
 
@@ -68,12 +68,16 @@ export default function TelaHome(){
     }, [isFocused])
   )
 
+  async function atualizarProximoCliente(){
+    const response = await getProximaClienteFuncionario(userState.id)
+
+    if(response.data){
+      setProximoCliente(response.data.resultado)
+    }
+  }
 
 return (
-  <Container >
-      {/* <Spinner visible={visible} customIndicator={(
-        <SpinnerLoading titulo='Carregando...' />
-      )}  /> */}
+  <Container>
      <StatusBar backgroundColor={theme.colors.background_screens} barStyle={'dark-content'} />
     <AreaHeader>
       <AreaMensagemNome>
@@ -96,14 +100,32 @@ return (
         {refreshing ? <ActivityIndicator/> : infoFuncionario?.faturamentoDia}
         </ValorFaturamento>
       </CardFaturamento>
-      <CardAvaliacao>
+      {/* <CardAvaliacao>
         <TextoAvaliacao>
           Avaliação media de{'\n'}sua empresa
         </TextoAvaliacao>
         <ValorAvaliacao>
         {refreshing ? <ActivityIndicator/> : infoFuncionario?.mediaEmpresa}
         </ValorAvaliacao>
-      </CardAvaliacao>
+      </CardAvaliacao> */}
+       <AreaMiniCards>
+        <MiniCard>
+          <TextoMiniCard>
+            Avaliação média da empresa
+          </TextoMiniCard>
+          <ValorMiniCard>
+          {refreshing ? <ActivityIndicator/> : infoFuncionario?.mediaEmpresa}
+          </ValorMiniCard>
+        </MiniCard>
+        <MiniCard>
+          <TextoMiniCard>
+            Sua respectiva avaliação
+          </TextoMiniCard>
+          <ValorMiniCard>
+            {refreshing ? <ActivityIndicator/> : infoFuncionario?.mediaFuncionario}
+          </ValorMiniCard>
+        </MiniCard>
+      </AreaMiniCards>
       <AreaMiniCards>
         <MiniCard>
           <TextoMiniCard>
@@ -128,7 +150,7 @@ return (
       <AreaProximoCliente>
       {refreshing ? <ActivityIndicator/> : 
         proximoCliente != null ? 
-        <CardAgendamento item={proximoCliente} index={0} />
+        <CardAgendamento item={proximoCliente} index={0} attlista={atualizarProximoCliente} idFuncionario={userState.id} />
         :
         <ProximoClienteVazio>Você não possui agendamento.</ProximoClienteVazio>
       }

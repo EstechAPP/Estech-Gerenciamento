@@ -56,7 +56,8 @@ export const AreaInformacoes = styled.View`
 `;
 export const CardFaturamento = styled.View`
 
-   width: 327px;
+   width: ${wp('85%')}px;
+   padding: 2px;
    height: 103px;
    margin-top: ${hp('5%')}px;
    background-color: ${({theme}) => theme.colors.background_bege};
@@ -84,7 +85,8 @@ export const ValorFaturamento = styled.Text`
 `;
 export const CardAvaliacao = styled.View`
    
-   width: 327px;
+   width: ${wp('85%')}px;
+   padding: 2px;
    height: 103px;
    margin-top: ${hp('2%')}px;
    background-color: ${({theme}) => theme.colors.background_bege};
@@ -111,7 +113,7 @@ export const ValorAvaliacao = styled.Text`
 `;
 export const MiniCard = styled.View`
 
-   width: 116px;
+   width: ${wp('30%')}px;
    height: 101px;
    background-color: ${({theme}) => theme.colors.select_tab};
    border-radius: 4px;

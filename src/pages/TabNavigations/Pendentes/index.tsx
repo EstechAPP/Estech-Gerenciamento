@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { CardConfirmacao } from '../../../components/CardConfirmacao';
+import { SpinnerLoading } from '../../../components/SpinnerLoading';
 import AuthContext from '../../../context/user';
 import { getPendentesFuncionario } from '../../../services/agenda';
 import { IAgendaServicoUsuario } from '../../../types/AgendaServicoUsuario';
@@ -44,16 +45,20 @@ return (
           <TextoMensagem>Serviços aguardando confirmação</TextoMensagem>
         </AreaMensagemNome>
     </AreaHeader>
-    <ListaAgendamentos
-      data={pendentes}
-      contentContainerStyle={{alignItems: 'center'}}
-      ListEmptyComponent={(
-        <TextoMensagem>Você não possui agendamentos pendentes.</TextoMensagem>
-      )}
-      renderItem={({item, index}) => (
-        <CardConfirmacao item={item} index={index} attlista={attLista}/>
-      )}
-    />
+    {refreshing ? <SpinnerLoading titulo="Carregando..."/> 
+    :
+    (
+      <ListaAgendamentos
+        data={pendentes}
+        contentContainerStyle={{alignItems: 'center'}}
+        ListEmptyComponent={(
+          <TextoMensagem>Você não possui agendamentos pendentes.</TextoMensagem>
+        )}
+        renderItem={({item, index}) => (
+          <CardConfirmacao item={item} index={index} attlista={attLista}/>
+        )}
+      />
+    )}
    </Container>
   );
 }
