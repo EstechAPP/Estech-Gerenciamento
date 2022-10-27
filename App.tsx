@@ -2,6 +2,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import moment from 'moment';
 import 'moment/min/locales';
 import React from 'react';
+import { StatusBar } from 'react-native';
 import { ThemeProvider } from 'styled-components';
 import GlobalContext from './src/context';
 import RoutesNavigator from './src/Routes/RoutesNavigation';

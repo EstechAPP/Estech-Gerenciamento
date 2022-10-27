@@ -7,6 +7,7 @@ export interface IUser{
     cep: string;
     uf: string;
     cidade: string;
+    feedback: Number;
     foto_base64: string;
     dataCadastro: string;
     tipos_Usuarioid: number;

@@ -37,10 +37,10 @@ return (
         <Icon name='close' size={26} color={theme.colors.select_tab} onPress={() => navigation.goBack()} />
     </AreaHeader>
     <AreaPreviewCliente>
-      <ImagemPreview source={ dados.fotoClienteBase64 ? {uri: dados.fotoClienteBase64}  : require('../../../assets/noimageavailable.png')}/>
+      <ImagemPreview source={ dados.usuarioCliente.foto_base64 ? {uri: dados.usuarioCliente.foto_base64}  : require('../../../assets/noimageavailable.png')}/>
       <Label>Cliente</Label>
-      <NomeCliente>{dados.nomeCliente}</NomeCliente>
-      <TextoResposta>{dados.celularCliente}</TextoResposta>
+      <NomeCliente>{dados.usuarioCliente.nome + " " + dados.usuarioCliente.sobrenome}</NomeCliente>
+      <TextoResposta>{dados.usuarioCliente.celular}</TextoResposta>
       <TituloHoraAgendamento>Horário do agendamento</TituloHoraAgendamento>
       <TextoHoraAgendamento>{moment(dados.dataAgendamento).calendar()}</TextoHoraAgendamento>
     </AreaPreviewCliente>
@@ -57,8 +57,12 @@ return (
     <AreaDetalhes>
       <TituloDetalhes>Informações do serviço</TituloDetalhes>
       <AreaInfoDetalhes>
-        <TextoTitulo>Descrição Serviço: </TextoTitulo>
-        <TextoResposta>{dados.nomeServico}</TextoResposta>
+        <TextoTitulo>Descrição: </TextoTitulo>
+        <TextoResposta>{dados.servicoAgenda.descricao}</TextoResposta>
+      </AreaInfoDetalhes>
+      <AreaInfoDetalhes>
+        <TextoTitulo>Preço: </TextoTitulo>
+        <TextoResposta>{dados.servicoAgenda.preco}</TextoResposta>
       </AreaInfoDetalhes>
       <AreaInfoDetalhes>
         <TextoTitulo>Tempo médio para realizar o serviço: </TextoTitulo>

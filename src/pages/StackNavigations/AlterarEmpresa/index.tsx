@@ -139,7 +139,7 @@ export function AlterarEmpresa({route}){
             if(tipoImagem == 'Logo'){
               alterarLogoTipoEmpresa(userState.donoEmpresa, dataURI)
               .then(response => {
-                  setEmpresa(prevState => ({ ...prevState, logoEmp: dataURI }));
+                  setEmpresa(prevState => ({ ...prevState, imgLogo_fisico: dataURI }));
               })
               .catch(err => {
                   Alert.alert('Erro alterar foto', err.data.mensagem)
@@ -147,7 +147,7 @@ export function AlterarEmpresa({route}){
             }else{
               alterarCapaEmpresa(userState.donoEmpresa, dataURI)
               .then(response => {
-                  setEmpresa(prevState => ({ ...prevState, capaEmp: dataURI }));
+                  setEmpresa(prevState => ({ ...prevState, imgCapa_fisico: dataURI }));
               })
               .catch(err => {
                   Alert.alert('Erro alterar foto', err.data.mensagem)
@@ -166,7 +166,7 @@ export function AlterarEmpresa({route}){
             if(tipoImagem == 'Logo'){
               alterarLogoTipoEmpresa(userState.donoEmpresa, dataURI)
               .then(response => {
-                  setEmpresa(prevState => ({ ...prevState, logoEmp: dataURI }));
+                  setEmpresa(prevState => ({ ...prevState, imgLogo_fisico: dataURI }));
               })
               .catch(err => {
                   Alert.alert('Erro alterar foto', err.data.mensagem)
@@ -174,7 +174,7 @@ export function AlterarEmpresa({route}){
             }else{
               alterarCapaEmpresa(userState.donoEmpresa, dataURI)
               .then(response => {
-                  setEmpresa(prevState => ({ ...prevState, capaEmp: dataURI }));
+                  setEmpresa(prevState => ({ ...prevState, imgCapa_fisico: dataURI }));
               })
               .catch(err => {
                   Alert.alert('Erro alterar foto', err.data.mensagem)
@@ -193,14 +193,14 @@ return (
             <AreaLogoCapa>
                 <AreaFoto>
                     <TituloImagem>Logotipo</TituloImagem>
-                    <ImagemPreview source={empresaState?.logoEmp ? {uri: empresaState.logoEmp} : require('../../../../assets/noimageavailable.png')}/>
+                    <ImagemPreview source={empresaState?.imgLogo_fisico ? {uri: empresaState.imgLogo_fisico} : require('../../../../assets/noimageavailable.png')}/>
                     <TouchUpload onPress={() => SelecionaImagem('Logo')}>
                         <Icon name="picture" size={24} color={theme.colors.white} />
                     </TouchUpload>
                 </AreaFoto>
                 <AreaFoto>
                     <TituloImagem>Capa</TituloImagem>
-                    <ImagemPreview source={empresaState?.capaEmp ? {uri: empresaState.capaEmp} : require('../../../../assets/noimageavailable.png')}/>
+                    <ImagemPreview source={empresaState?.imgCapa_fisico ? {uri: empresaState.imgCapa_fisico} : require('../../../../assets/noimageavailable.png')}/>
                     <TouchUpload onPress={() => SelecionaImagem('Capa')}>
                         <Icon name="picture" size={24} color={theme.colors.white} />
                     </TouchUpload>

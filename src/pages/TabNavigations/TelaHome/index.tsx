@@ -33,7 +33,6 @@ import { getInfoHomeFuncionario, getProximaClienteFuncionario} from '../../../se
 import { IAgendaServicoUsuario } from '../../../types/AgendaServicoUsuario';
 import axios from 'axios';
 import { IInfoHomeFuncionario } from '../../../types/infoHomeFuncionario';
-import { IAgendamento } from '../../../types/agenda';
 
 export default function TelaHome(){
 
@@ -150,7 +149,7 @@ return (
       <AreaProximoCliente>
       {refreshing ? <ActivityIndicator/> : 
         proximoCliente != null ? 
-        <CardAgendamento item={proximoCliente} index={0} attlista={atualizarProximoCliente} idFuncionario={userState.id} />
+        <CardAgendamento item={proximoCliente} tipoAgenda="Normal" index={0} attlista={atualizarProximoCliente} idFuncionario={userState.id} />
         :
         <ProximoClienteVazio>Você não possui agendamento.</ProximoClienteVazio>
       }

@@ -78,11 +78,11 @@ export function CardAgendamento({item, index, tipoAgenda, attlista, idFuncionari
 return (
    <Container index={index}>
         <AreaFotoCliente>
-            <FotoCliente source={item.fotoClienteBase64 ? {uri: item.fotoClienteBase64} : require('../../../assets/no-profile-icon.png')}/>
+            <FotoCliente source={item.usuarioCliente.foto_base64 ? {uri: item.usuarioCliente.foto_base64} : require('../../../assets/no-profile-icon.png')}/>
         </AreaFotoCliente>
         <AreaInformacoes>
             <AreaInfo>
-                <NomeCliente>{item.nomeCliente}</NomeCliente>
+                <NomeCliente>{item.usuarioCliente.nome + " " + item.usuarioCliente.sobrenome}</NomeCliente>
             </AreaInfo>
             <AreaInfo>
                 <HorarioAgendamento>Data: </HorarioAgendamento>

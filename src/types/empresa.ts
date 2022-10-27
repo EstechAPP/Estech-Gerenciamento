@@ -11,12 +11,14 @@ export interface IEmpresa{
     cidade: string;
     uf: string;
     cep: string;
-    logoEmp: string;
-    capaEmp: string;
+    imgLogo_fisico: string;
+    imgCapa_fisico: string;
+    mediaFeedback: Number;
     latitude: string;
     longitude: string;
     horasFuncionamentoInicio: string;
     horasFuncionamentoFim: string;
+    empresaAtiva: Boolean
 }
 
 export interface IEmpresaData{

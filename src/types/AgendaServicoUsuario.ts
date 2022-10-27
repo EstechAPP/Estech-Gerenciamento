@@ -1,23 +1,23 @@
+import { IEmpresa } from "./empresa";
+import { IServico } from "./servico";
+import { IUser } from "./user";
+
 export interface IAgendaServicoUsuario{
-    nomeServico: string;
-    tempoMedioServico: string;
-    celularCliente: string;
-    nomeFuncionario: string;
-    celularFuncionario: string;
-    fotoFuncionarioBase64: string;
-    nomeCliente: string;
-    fotoClienteBase64: string;
-    id: Number;
-    dataAgendamento: string; 
-    tempoeMedioServico: string;
-    feedback: Number;
-    confirmado: boolean;
-    servicoFinalizado: boolean;
-    canceladoPor: Number;
-    cliente_id: Number;
-    funcionario_id: Number;
-    empresa_id: Number;
-    servicos_id: Number;
+    id: Number
+    dataAgendamento: Date,
+    tempoeMedioServico: string,
+    feedback: Number
+    confirmado: true,
+    servicoFinalizado: true,
+    canceladoPor: Number
+    cliente_id: Number
+    funcionario_id: Number
+    empresa_id: Number,
+    servicos_id: Number,
+    empresaAgenda: IEmpresa,
+    usuarioFuncionario: IUser,
+    usuarioCliente: IUser,
+    servicoAgenda: IServico
 }
 
 export interface IAgendaServicoUsuarioData{
