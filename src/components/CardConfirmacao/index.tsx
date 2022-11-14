@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import moment from 'moment';
 import React from 'react';
 import { Alert } from 'react-native';
@@ -23,6 +24,8 @@ import {
 } from './styles';
 
 export function CardConfirmacao({item, index, attlista} : {item: IAgendaServicoUsuario, index: number, attlista: () => void}){
+
+    const navigation = useNavigation();
 
 function DialogConfirmacao(statusAgendamento : boolean){
 
@@ -53,11 +56,11 @@ function ConfirmaRecusaAgendamento(statusAgendamento: boolean){
 return (
    <Container index={index} >
         <AreaFotoCliente>
-            <FotoCliente source={item.fotoClienteBase64 ? {uri: item.fotoClienteBase64} : require('../../../assets/no-profile-icon.png')}/>
+            <FotoCliente source={item.usuarioCliente.foto_base64 ? {uri: item.usuarioCliente.foto_base64} : require('../../../assets/no-profile-icon.png')}/>
         </AreaFotoCliente>
         <AreaInformacoes>
             <AreaInfo>
-                <NomeCliente>{item.nomeCliente}</NomeCliente>
+                <NomeCliente>{item.usuarioCliente.nome} {item.usuarioCliente.sobrenome}</NomeCliente>
             </AreaInfo>
             <AreaInfo>
                 <HorarioAgendamento>Data: </HorarioAgendamento>
@@ -67,7 +70,7 @@ return (
                 <HorarioAgendamento>Dia da semana: </HorarioAgendamento>
                 <ValorHorario>{moment(item.dataAgendamento).format('dddd')}</ValorHorario>
             </AreaInfo>
-            <TouchDetalhes>
+            <TouchDetalhes onPress={() => {navigation.navigate("ModalDetalhes", {dados: item})}}>
                 <DetalhesAgendamento>Detalhes do Agendamento</DetalhesAgendamento>
             </TouchDetalhes>
             <AreaStatus>

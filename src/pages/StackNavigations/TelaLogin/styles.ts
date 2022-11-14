@@ -53,6 +53,15 @@ export const AreaEsqueceuSenha = styled.View`
   padding-bottom: 24px;
 
 `;
+
+export const AreaCadastrar = styled.View`
+
+  width: ${wp('79%')}px;
+  margin-top: ${hp('20%')}px;
+  justify-content: center;
+  align-items: center;
+
+`;
 export const TouchSenha = styled.TouchableOpacity`
 
 

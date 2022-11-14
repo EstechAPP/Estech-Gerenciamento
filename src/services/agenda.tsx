@@ -28,8 +28,6 @@ export async function getInfoHomeFuncionario(idFuncionario: Number): Promise<Axi
     return await API.get<IDataInfoHomeFuncionario>(`api/Agenda/getInfoHomeFuncionario?idFuncionario=${idFuncionario}`)
 }
 
-
-
 export async function postConfirmaRecusaAgendamento(idAgendamento: Number, statusAgendamento: boolean): Promise<AxiosResponse<IDataAgendamento>>{
     return await API.post<IDataAgendamento>('/api/Agenda/confirmarecusaagendamento', {
         idAgendamento,

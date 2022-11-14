@@ -10,7 +10,8 @@ import {
   TextoLabel,
   AreaEsqueceuSenha,
   TouchSenha,
-  TextoSenha
+  TextoSenha,
+  AreaCadastrar
 } from "./styles";
 import { useNavigation } from "@react-navigation/native";
 import { Login } from "../../../services/auth";
@@ -92,6 +93,12 @@ export default function TelaLogin() {
         :(
           <PrimaryButton titulo="Fazer login" onPress={EfetuarLogin} />
         )}
+        <AreaCadastrar>
+        <TextoLabel>Inclua seu negócio a plataforma é rapidinho!</TextoLabel>
+        <TouchSenha onPress={() => navigation.navigate('CadEmpresa')} >
+          <TextoSenha>Cadastre aqui</TextoSenha>
+        </TouchSenha>
+        </AreaCadastrar>
       </AreaLogin>
     </Container>
   );

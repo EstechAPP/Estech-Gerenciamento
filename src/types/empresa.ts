@@ -21,9 +21,35 @@ export interface IEmpresa{
     empresaAtiva: Boolean
 }
 
+
+export interface IEmpresaCad{
+    id: number;
+    razaosocial: string;
+    nomefantasia: string;
+    cpfcnpj: string;
+    celular: string;
+    logradouro: string;
+    numero: string;
+    bairro: string;
+    cidade: string;
+    uf: string;
+    cep: string;
+    emailDono: string;
+    imgLogo: string;
+    imgCapa: string;
+    horasFuncionamentoInicio: string;
+    horasFuncionamentoFim: string;
+}
+
 export interface IEmpresaData{
     status: boolean;
     resultado: IEmpresa;
+    mensagem: string;
+}
+
+export interface IEmpresaCadData{
+    status: boolean;
+    resultado: IEmpresaCad;
     mensagem: string;
 }
 

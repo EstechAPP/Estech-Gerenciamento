@@ -8,11 +8,11 @@ import {
 
 
 interface CustomInput extends TextInputProps {
-  backgroundColor: string
+  backgroundColor?: string
 }
 
 interface CustomMaskInput extends MaskInputProps {
-  backgroundColor: string
+  backgroundColor?: string
 }
 
 export function CustomInput({...rest} : CustomInput){

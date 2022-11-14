@@ -26,6 +26,7 @@ import { AddFuncionario } from '../pages/StackNavigations/Funcionarios/AddFuncio
 import { VincularFuncionariosServico } from '../pages/StackNavigations/Servicos/VincularFuncionariosServico';
 import { FinalizaAgenda } from '../pages/StackNavigations/FinalizaAgenda';
 import { ModalDetalhes } from '../components/ModalDetalhes';
+import { CadEmpresa } from '../pages/StackNavigations/CadEmpresa';
 
 
 
@@ -155,6 +156,11 @@ function RoutesNavigator() {
         <Stack.Screen
           name="FinalizaAgenda"
           component={FinalizaAgenda}
+          options={StackOptions}
+        />
+        <Stack.Screen
+          name="CadEmpresa"
+          component={CadEmpresa}
           options={StackOptions}
         />
         <Stack.Screen
