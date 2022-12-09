@@ -185,6 +185,10 @@ export default function Perfil(){
     })
   }
 
+  function acessaManual(){
+    Linking.openURL("https://1drv.ms/v/s!Aqi2m1WrMRqsg9wxecVqgYIatv5cqg?e=bxtxAC")
+  }
+
 return (
    <Container>
     <Spinner visible={visible} customIndicator={<SpinnerLoading titulo='Carregando dados da empresa...'/>} />
@@ -216,7 +220,14 @@ return (
     </AreaPerfil>
     <AreaButtons>
       <ButtonPerfil titulo='Sair' iconName='logout' onPress={logout} />
-      <ButtonPerfil titulo='Alterar Empresa' iconName='edit' onPress={carregaDadosEmpresa}/>
+      {userState.donoEmpresa != 0 && (
+        <ButtonPerfil titulo='Alterar Empresa' iconName='edit' onPress={carregaDadosEmpresa}/>
+      )}
+      {userState.donoEmpresa != 0 ? (
+          <ButtonPerfil titulo='Manual do Usuário' iconName='live-help' space onPress={acessaManual}/>
+        ) : (
+          <ButtonPerfil titulo='Manual do Usuário' iconName='live-help' onPress={acessaManual}/>
+      )}
     </AreaButtons>
    </Container>
   );

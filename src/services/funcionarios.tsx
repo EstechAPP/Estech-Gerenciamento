@@ -13,6 +13,13 @@ export async function postVinculaDono(emailDono: string, idEmpresa: number): Pro
     })
 }
 
+export async function postDesviculaDono(emailDono: string, idEmpresa: number): Promise<AxiosResponse<IUserData>>{
+    return await API.post<IUserData>('api/Empresa/desvinculaDonoEmpresa',{
+        emailDono,
+        idEmpresa
+    })
+}
+
 export async function postDesvinculaFuncionario(emailFuncionario: string, idDonoVinculador: number): Promise<AxiosResponse<IUserData>>{
     return await API.post<IUserData>('api/Empresa/desvincularfuncionarioempresa',{
         emailFuncionario,

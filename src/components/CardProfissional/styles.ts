@@ -16,7 +16,7 @@ export const Container = styled.View`
 
 
 export const AreaProfissional = styled.View`
-   width: ${({data}) => data.donoEmpresa != 0 ? 270 : 200}px;
+   width: 200px;
    height: 60px;
    background-color: ${({theme}) => theme.colors.background_cards};
    flex-direction: row;

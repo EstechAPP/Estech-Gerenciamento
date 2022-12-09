@@ -165,21 +165,21 @@ return (
         {formaCad == "CPF" ? (
             <ViewCampo>
                 <TextoCampo>CPF</TextoCampo>
-                <CustomMaskInput mask={Masks.BRL_CPF} placeholder='ex: 000.000.000-00' maxLength={14}  value={CPF} onChangeText={value => setCPF(value)}   />
+                <CustomMaskInput mask={Masks.BRL_CPF} placeholder='ex: 000.000.000-00' maxLength={14} keyboardType='number-pad'  value={CPF} onChangeText={value => setCPF(value)}   />
             </ViewCampo>
         ) : (
             <ViewCampo>
                 <TextoCampo>CNPJ</TextoCampo>
-                <CustomMaskInput mask={Masks.BRL_CNPJ} placeholder='ex: 00.000.000/0000-00' maxLength={18}   value={CNPJ} onChangeText={value => setCNPJ(value)}   />
+                <CustomMaskInput mask={Masks.BRL_CNPJ} placeholder='ex: 00.000.000/0000-00' maxLength={18} keyboardType='number-pad'   value={CNPJ} onChangeText={value => setCNPJ(value)}   />
             </ViewCampo>
         )}
         <ViewCampo>
             <TextoCampo>Celular</TextoCampo>
-            <CustomMaskInput mask={Masks.BRL_PHONE} maxLength={15} placeholder='ex: (99) 99999-9999' value={celular} onChangeText={value => setcelular(value)}   />
+            <CustomMaskInput mask={Masks.BRL_PHONE} maxLength={15} placeholder='ex: (99) 99999-9999' keyboardType='phone-pad' value={celular} onChangeText={value => setcelular(value)}   />
         </ViewCampo>
         <ViewCampo>
             <TextoCampo>CEP</TextoCampo>
-            <CustomMaskInput mask={Masks.ZIP_CODE} maxLength={9} placeholder='ex: 99999-999' onEndEditing={buscaUFCidade}  value={cep} onChangeText={value => setcep(value)}  />
+            <CustomMaskInput mask={Masks.ZIP_CODE} maxLength={9} placeholder='ex: 99999-999' keyboardType='number-pad' onEndEditing={buscaUFCidade}  value={cep} onChangeText={value => setcep(value)}  />
         </ViewCampo>
         <ViewCampo>
             <TextoCampo>UF</TextoCampo>
@@ -211,7 +211,7 @@ return (
         </ViewCampo>
         <ViewCampo>
             <TextoCampo>Email do Dono</TextoCampo>
-            <CustomInput placeholder='ex: SP'  value={emailDono} onChangeText={value => setemailDono(value)} onPressIn={dialgoEmail} />
+            <CustomInput placeholder='ex: email@hotmail.com' keyboardType='email-address' value={emailDono} onChangeText={value => setemailDono(value)} onPressIn={dialgoEmail} />
         </ViewCampo>
         {visible ? 
         <ActivityIndicator/>

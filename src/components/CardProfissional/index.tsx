@@ -13,12 +13,12 @@ import {
 } from './styles';
 import theme from '../../styles/theme';
 import {Alert} from 'react-native';
-import { postDesvinculaFuncionario, postVinculaDono } from '../../services/funcionarios';
+import { postDesviculaDono, postDesvinculaFuncionario, postVinculaDono } from '../../services/funcionarios';
 import AuthContext from '../../context/user';
 
 export function CardProfissional({data, index, atualizaAgenda}: {data: IUser; index: number, atualizaAgenda: () => void}) {
 
-  const {userState} = useContext(AuthContext)
+  const {userState, logout} = useContext(AuthContext)
     
   function dialogVincula() {
     Alert.alert(
@@ -103,7 +103,42 @@ export function CardProfissional({data, index, atualizaAgenda}: {data: IUser; in
     .catch(err => {
       console.error(err)
     })
+  }
 
+  function dialogDesvinculaDono(){
+    Alert.alert(
+      'ATENÇÃO',
+      `Deseja retirar o Privilégio de Dono do usuário: ${data.nome} ${data.sobrenome}?`,
+      [
+        {
+          text: 'Sim',
+          onPress: () => desviculaDono(),
+        },
+        {
+          text: 'Não',
+          style: 'cancel',
+        },
+      ],
+      {
+        cancelable: true,
+        onDismiss: () => {},
+      },
+    );
+  }
+
+  function desviculaDono(){
+    postDesviculaDono(data.email,data.donoEmpresa)
+    .then(response => {
+      Alert.alert(response.data.mensagem);
+      if(data.email == userState.email && response.data.status == true){
+        // Alert.alert(response.data.mensagem)
+        logout();
+      }
+      atualizaAgenda();
+    })
+    .catch(err => {
+      console.error(err)
+    })
   }
 
   return (
@@ -131,6 +166,14 @@ export function CardProfissional({data, index, atualizaAgenda}: {data: IUser; in
           backgroundColor={theme.colors.select_tab}
           onPress={dialogVincula}>
           <Icon name="hail" size={20} />
+        </TouchButton>
+      )}
+      {data.donoEmpresa != 0 && (
+        <TouchButton
+          backgroundColor={theme.colors.select_tab}
+          onPress={dialogDesvinculaDono}
+        >
+          <Icon name="person-remove" size={20} />
         </TouchButton>
       )}
         <TouchButton

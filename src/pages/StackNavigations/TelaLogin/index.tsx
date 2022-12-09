@@ -38,6 +38,7 @@ export default function TelaLogin() {
       .then(response =>{
         if(response.data.usuario.funcionarioEmpresa == 0){
           Alert.alert("Você não possui permissão para acesso do gerenciador.");
+          setRefreshing(false);
         }else{
           setUserState(response.data.usuario);
           setEmail('');
