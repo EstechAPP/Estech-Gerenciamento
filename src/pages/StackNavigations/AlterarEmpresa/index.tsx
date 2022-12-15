@@ -208,10 +208,14 @@ return (
             </AreaLogoCapa>
             <InfoEmpresa>
                 <TituloEmpresa>{empresaState?.nomefantasia}</TituloEmpresa>
-                <AreaDataCadastro>
-                    <DataCadastro>Razão Social: </DataCadastro>
-                    <ResultCadastro>{empresaState?.razaosocial}</ResultCadastro>
-                </AreaDataCadastro>
+                {
+                  empresaState?.cpfcnpj?.length > 14 && (
+                    <AreaDataCadastro>
+                        <DataCadastro>Razão Social: </DataCadastro>
+                        <ResultCadastro>{empresaState?.razaosocial}</ResultCadastro>
+                    </AreaDataCadastro>
+                  ) 
+                }
             </InfoEmpresa>
         </Header>
         <AreaButtons>

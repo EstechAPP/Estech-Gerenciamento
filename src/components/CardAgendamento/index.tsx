@@ -25,28 +25,36 @@ export function CardAgendamento({item, index, tipoAgenda, attlista, idFuncionari
 
     const navigation = useNavigation();
 
-    function finalizarAgendamento(){
-        Alert.alert('Finalizar agendamento', "Deseja finalizar o agendamento?", [
+    function DialogFinalizarAgendamento(){
+        Alert.alert('Finalizar agendamento', "Cliente compareceu para a realização do serviço?", [
             {
                 text: 'Sim',
-                onPress: () => { 
-                    postFinalizarAgendamento(item.id, true)
-                    .then(response => {
-                        Alert.alert(response.data.mensagem);
-                        attlista();
-            
-                    })
-                    .catch(err => {
-                        Alert.alert("Tivemos um problema em processar sua requisição", err.data.mensagem);
-                    })
-                },
+                onPress: () => FinalizarAgendamento(true),
                 style: "default"
             },
             {
                 text: 'Não',
+                style: "destructive",
+                onPress: () => FinalizarAgendamento(false)
+            }
+            ,
+            {
+                text: 'Cancelar',
                 style: "cancel"
             }
         ] )
+    }
+
+    async function FinalizarAgendamento(compareceu: boolean){
+        postFinalizarAgendamento(item.id, compareceu)
+            .then(response => {
+                Alert.alert(response.data.mensagem);
+                attlista();
+    
+            })
+            .catch(err => {
+                Alert.alert("Tivemos um problema em processar sua requisição", err.data.mensagem);
+            })
     }
 
     function CancelaAgendamento(){
@@ -92,7 +100,7 @@ return (
                 <DetalhesAgendamento>Detalhes do Agendamento</DetalhesAgendamento>
             </TouchDetalhes>
             {tipoAgenda == "Finalizar" ? (
-                <TouchCancelarFinalizar tipoAgenda={tipoAgenda} onPress={finalizarAgendamento}>
+                <TouchCancelarFinalizar tipoAgenda={tipoAgenda} onPress={DialogFinalizarAgendamento}>
                     <CancelarAgendamento>Finalizar Agendamento</CancelarAgendamento>
                 </TouchCancelarFinalizar>
             ) : (

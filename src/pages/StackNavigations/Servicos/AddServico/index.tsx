@@ -65,6 +65,9 @@ export function AddServico({route}) {
     function apagarServico(){
       deleteServicosEmpresa(objServico.id)
       .then(response => {
+        if(response.data.status == false){
+          Alert.alert("Não foi possível excluir o serviço", response.data.mensagem)
+        }
         if(response.data.status){
           Alert.alert(response.data.mensagem)
           navigation.goBack();
